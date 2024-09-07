@@ -13,12 +13,15 @@ export function SwitchTheme() {
   if (!mounted) return null;
 
   return (
-    <div className='transition-opacity duration-300 ease-in-out'>
+    <button
+      className='cursor-pointer ease-in-out bg-light-shape dark:bg-dark-shape rounded-lg active:scale-95 transition-all duration-200'
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+    >
       {resolvedTheme === 'dark' ? (
-        <Sun03Icon className='cursor-pointer' size={20} onClick={() => setTheme('light')} />
+        <Sun03Icon className='m-2 text-light-text dark:text-dark-text' size={18} />
       ) : (
-        <Moon02Icon className='cursor-pointer' size={20} onClick={() => setTheme('dark')} />
+        <Moon02Icon className='m-2 text-light-text dark:text-dark-text' size={18} />
       )}
-    </div>
+    </button>
   );
 }
