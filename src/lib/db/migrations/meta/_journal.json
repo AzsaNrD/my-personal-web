@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1777550447658,
+      "tag": "0000_nappy_thor_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777550583113,
+      "tag": "0001_condemned_nebula",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777560993155,
+      "tag": "0002_parallel_wallop",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777564396310,
+      "tag": "0003_loving_goliath",
+      "breakpoints": true
+    }
+  ]
+}

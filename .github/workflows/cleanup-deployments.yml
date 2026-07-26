@@ -1,0 +1,39 @@
+name: Cleanup deployments
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      keep:
+        description: 'How many recent deployments to keep'
+        required: false
+        default: '5'
+
+permissions:
+  deployments: write
+
+jobs:
+  cleanup:
+    if: github.event_name == 'workflow_dispatch' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete older deployments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          KEEP: ${{ github.event.inputs.keep || 5 }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -e
+          ids=$(gh api "repos/$REPO/deployments" --paginate -q '.[].id' | tail -n +$((KEEP + 1)))
+          if [ -z "$ids" ]; then
+            echo "Nothing to delete (have $(gh api "repos/$REPO/deployments" -q 'length') total, keeping $KEEP)."
+            exit 0
+          fi
+          for id in $ids; do
+            gh api "repos/$REPO/deployments/$id/statuses" -f state=inactive >/dev/null 2>&1 || true
+            if gh api -X DELETE "repos/$REPO/deployments/$id" >/dev/null 2>&1; then
+              echo "deleted $id"
+            else
+              echo "failed to delete $id (skipping)"
+            fi
+          done

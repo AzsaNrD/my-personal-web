@@ -1,0 +1,1 @@
+ALTER TABLE "guestbook" ADD COLUMN "anonymous" boolean DEFAULT false NOT NULL;

@@ -1,0 +1,266 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@plugin '@tailwindcss/typography';
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Fonts */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand — emerald, the primary accent of the Neo-Tokyo theme */
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+
+  /* Secondary accent — magenta, used sparingly (one corner, side text) */
+  --color-accent-magenta: #e879f9;
+}
+
+/* Map shadcn semantic tokens to our palette via CSS vars
+   so components like <Button> follow the theme. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* Flat, near-square scale so every rounded-* utility stays angular.
+     rounded-full is unaffected, so avatars stay circular. */
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 3px;
+}
+
+:root {
+  /* Angular, not rounded — the theme's corners stay sharp. */
+  --radius: 0.25rem;
+
+  --background: #ffffff;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+
+  --primary: #047857;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #3f3f46;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #047857;
+
+  --glow: rgba(4, 120, 87, 0.07);
+  --name-glow: transparent;
+  /* Scanlines are a dark-mode-only effect; they read as smudged paper on white. */
+  --scan: transparent;
+  --magenta: #a21caf;
+}
+
+.dark {
+  --background: #07080a;
+  --foreground: #fafafa;
+  --card: #0d0f12;
+  --card-foreground: #fafafa;
+  --popover: #0d0f12;
+  --popover-foreground: #fafafa;
+
+  --primary: #34d399;
+  --primary-foreground: #07080a;
+  --secondary: #16191d;
+  --secondary-foreground: #e4e4e7;
+
+  --muted: #12151a;
+  --muted-foreground: #a1a1aa;
+  --accent: #16191d;
+  --accent-foreground: #fafafa;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #07080a;
+
+  --border: #1f242a;
+  --input: #1f242a;
+  --ring: #34d399;
+
+  --glow: rgba(52, 211, 153, 0.14);
+  --name-glow: rgba(52, 211, 153, 0.35);
+  --scan: rgba(255, 255, 255, 0.03);
+  --magenta: #e879f9;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    color-scheme: light dark;
+  }
+
+  /* Tailwind's preflight leaves buttons at `cursor: default`; bring the hand back
+     so every button, trigger, and toggle feels clickable. */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  summary {
+    cursor: pointer;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+
+  /* Headings default to the body font (clean); the display font (Clash Display)
+     is opt-in via the `font-display` utility, reserved for large hero moments. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+
+  /* Scanline overlay — only visible in dark mode (--scan is transparent in light) */
+  body {
+    position: relative;
+  }
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--scan) 0px,
+      var(--scan) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  }
+
+  /* Single ambience glow, top-left — emerald in dark, near-invisible in light */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -10rem;
+    left: -8rem;
+    width: 34rem;
+    height: 34rem;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 9999px;
+    filter: blur(130px);
+    background-color: var(--glow);
+  }
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* rehype-pretty-code dual-theme: pick the right var per active theme */
+  code[data-theme*=' '] span {
+    color: var(--shiki-light);
+  }
+  .dark code[data-theme*=' '] span {
+    color: var(--shiki-dark);
+  }
+
+  /* Highlighted lines & words from rehype-pretty-code */
+  [data-line-numbers] [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1.5rem;
+    margin-right: 1rem;
+    text-align: right;
+    color: var(--muted-foreground);
+  }
+  [data-highlighted-line] {
+    background-color: color-mix(in oklab, var(--primary) 12%, transparent);
+    border-left: 2px solid var(--primary);
+  }
+  [data-highlighted-chars] {
+    background-color: color-mix(in oklab, var(--primary) 18%, transparent);
+    border-radius: 0.25rem;
+    padding: 0 0.2rem;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-shimmer {
+  from {
+    background-position: 150% center;
+  }
+  to {
+    background-position: -50% center;
+  }
+}

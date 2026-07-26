@@ -1,0 +1,2 @@
+export const LASTFM_POLL_INTERVAL_MS = 60_000;
+export const STEAM_POLL_INTERVAL_MS = 90_000;
