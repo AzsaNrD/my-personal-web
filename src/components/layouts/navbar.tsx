@@ -6,7 +6,6 @@ import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SwitchTheme } from '@/components/ui/switch-theme';
-import { Logo } from '@/components/ui/logo';
 import { siteConfig } from '@/lib/site-config';
 import { cn } from '@/lib/utils';
 
@@ -24,14 +23,11 @@ export function Navbar() {
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-5 py-4 sm:px-6">
         <Link
           href="/"
-          className="font-display inline-flex items-center gap-2.5 text-base font-bold tracking-tight"
+          className="font-display text-base font-bold tracking-tight"
           aria-label={`${siteConfig.shortName}, home`}
         >
-          <Logo size={22} />
-          <span>
-            <span className="text-foreground">azsa</span>
-            <span className="text-primary">-nrd</span>
-          </span>
+          <span className="text-foreground">azsa</span>
+          <span className="text-primary">-nrd</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
@@ -65,12 +61,9 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <SheetHeader>
-                <SheetTitle className="font-display inline-flex items-center gap-2.5 text-base font-bold">
-                  <Logo size={20} />
-                  <span>
-                    <span className="text-foreground">azsa</span>
-                    <span className="text-primary">-nrd</span>
-                  </span>
+                <SheetTitle className="font-display text-base font-bold">
+                  <span className="text-foreground">azsa</span>
+                  <span className="text-primary">-nrd</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-1 px-4">
