@@ -21,10 +21,10 @@ export function ConsoleGreeting() {
     w.__azsaGreeted = true;
 
     const headingStyle =
-      'color: #22d3ee; font-family: monospace; font-size: 12px; line-height: 1.4;';
-    const titleStyle = 'color: #1f8bff; font-size: 18px; font-weight: bold;';
-    const labelStyle = 'color: #8893b3; font-family: monospace;';
-    const valueStyle = 'color: #e5edff; font-family: monospace;';
+      'color: #34d399; font-family: monospace; font-size: 12px; line-height: 1.4;';
+    const titleStyle = 'color: #34d399; font-size: 18px; font-weight: bold;';
+    const labelStyle = 'color: #a1a1aa; font-family: monospace;';
+    const valueStyle = 'color: #fafafa; font-family: monospace;';
 
     console.log(`%c${ART}`, headingStyle);
     console.log(`%cHey, you found the console.`, titleStyle);
@@ -41,7 +41,7 @@ export function ConsoleGreeting() {
     console.log(' ');
     console.log(
       `%c// got an opportunity, idea, or just want to say hi? drop a message :)`,
-      'color: #22d3ee; font-style: italic; font-family: monospace;',
+      'color: #e879f9; font-style: italic; font-family: monospace;',
     );
     console.log(' ');
     console.log(

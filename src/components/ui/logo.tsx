@@ -2,12 +2,16 @@ import type { SVGProps } from 'react';
 
 type LogoProps = SVGProps<SVGSVGElement> & {
   size?: number;
+  /** Draw the mark as an outline in currentColor instead of the emerald tile. */
   monochrome?: boolean;
 };
 
+/**
+ * Brand mark: a solid emerald tile with the "A" knocked out of it.
+ * The filled silhouette is what keeps it legible down to favicon size.
+ */
 export function Logo({ size = 24, monochrome = false, ...props }: LogoProps) {
-  const stroke = monochrome ? 'currentColor' : 'url(#logo-gradient)';
-  const fill = monochrome ? 'currentColor' : 'url(#logo-gradient)';
+  const letter = monochrome ? 'currentColor' : '#07080a';
 
   return (
     <svg
@@ -18,29 +22,19 @@ export function Logo({ size = 24, monochrome = false, ...props }: LogoProps) {
       aria-hidden
       {...props}
     >
-      {!monochrome && (
-        <defs>
-          <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1f8bff" />
-            <stop offset="100%" stopColor="#22d3ee" />
-          </linearGradient>
-        </defs>
-      )}
-      <ellipse
-        cx="32"
-        cy="32"
-        rx="28"
-        ry="9"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="2"
-        transform="rotate(-25 32 32)"
+      <rect
+        x="2"
+        y="2"
+        width="60"
+        height="60"
+        fill={monochrome ? 'none' : '#34d399'}
+        stroke={monochrome ? 'currentColor' : 'none'}
+        strokeWidth="4"
       />
-      <path
-        d="M16 50 L30 14 L34 14 L48 50 L42 50 L38 40 L26 40 L22 50 Z M28 34 L36 34 L32 22 Z"
-        fill={fill}
-      />
-      <circle cx="56" cy="22" r="3.5" fill={fill} />
+      <g stroke={letter} strokeWidth="7" strokeLinecap="square" fill="none">
+        <path d="M16 50 L32 14 L48 50" />
+        <path d="M24 39 L40 39" />
+      </g>
     </svg>
   );
 }

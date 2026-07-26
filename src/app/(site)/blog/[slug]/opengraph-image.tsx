@@ -34,7 +34,21 @@ export default async function PostOpengraphImage({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div style={{ width: 6, height: 30, backgroundColor: '#34d399' }} />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 44,
+            height: 44,
+            backgroundColor: '#34d399',
+            color: '#07080a',
+            fontSize: 30,
+            fontWeight: 800,
+          }}
+        >
+          A
+        </div>
         <div style={{ display: 'flex', fontSize: 26, fontWeight: 700 }}>
           <span>azsa</span>
           <span style={{ color: '#34d399' }}>-nrd</span>

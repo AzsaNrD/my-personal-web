@@ -24,8 +24,22 @@ export default async function OpengraphImage() {
         fontFamily: 'system-ui, sans-serif',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <div style={{ width: 6, height: 34, backgroundColor: '#34d399' }} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 52,
+            height: 52,
+            backgroundColor: '#34d399',
+            color: '#07080a',
+            fontSize: 36,
+            fontWeight: 800,
+          }}
+        >
+          A
+        </div>
         <div style={{ display: 'flex', fontSize: 30, fontWeight: 700 }}>
           <span>azsa</span>
           <span style={{ color: '#34d399' }}>-nrd</span>
