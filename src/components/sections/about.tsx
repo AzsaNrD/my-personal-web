@@ -22,10 +22,10 @@ export function About() {
         <SectionHeading eyebrow="About" jp="自己紹介" title="About me" titleId="about-heading" />
         <div className="text-muted-foreground mt-5 space-y-4 leading-relaxed">
           <p>
-            I&apos;m a final-year Information Systems student at Universitas Gunadarma, and most of
+            I&apos;m a recent Information Systems graduate from Universitas Gunadarma, and most of
             my time goes into building web apps that solve real problems. I learn best by shipping,
-            and I also spent a while on machine learning through Asah, an independent study program
-            by Dicoding.
+            and I also gained experience in machine learning through Asah, an independent study
+            program by Dicoding.
           </p>
           <p>
             Outside of code I&apos;m usually playing Genshin Impact, watching anime, or listening to
