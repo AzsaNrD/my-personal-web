@@ -2,6 +2,9 @@ const BASE_URL = 'https://api.steampowered.com';
 const STORE_CDN = 'https://cdn.cloudflare.steamstatic.com/steam/apps';
 const ICON_CDN = 'https://media.steampowered.com/steamcommunity/public/images/apps';
 
+// App IDs to never surface (e.g. Valve's Spacewar test app).
+const HIDDEN_APP_IDS = new Set([480]);
+
 export type SteamPlayer = {
   name: string;
   avatar: string;
@@ -113,7 +116,7 @@ export async function getSteamPlayer(): Promise<SteamPlayer | null> {
     const state = PERSONA_STATES[player.personastate] ?? 'offline';
     const gameId = player.gameid ? Number(player.gameid) : null;
     let currentGame: SteamPlayer['currentGame'] = null;
-    if (gameId && player.gameextrainfo) {
+    if (gameId && player.gameextrainfo && !HIDDEN_APP_IDS.has(gameId)) {
       const images = await getAppDetailsImages(gameId);
       currentGame = {
         appId: gameId,
@@ -146,7 +149,7 @@ export async function getRecentSteamGames(limit = 5): Promise<SteamGame[]> {
   const url = `${BASE_URL}/IPlayerService/GetRecentlyPlayedGames/v1/?key=${apiKey}&steamid=${steamId}&count=${limit}`;
   try {
     const data = await steamFetch<{ response: { games?: RawRecentGame[] } }>(url, 600);
-    const games = data.response?.games ?? [];
+    const games = (data.response?.games ?? []).filter((g) => !HIDDEN_APP_IDS.has(g.appid));
     return await Promise.all(
       games.map(async (g) => {
         const images = await getAppDetailsImages(g.appid);
