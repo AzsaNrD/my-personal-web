@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
     slug: 'asah-dicoding',
     type: 'program',
     role: 'Machine Learning Cohort',
-    org: 'Asah, led by Dicoding',
+    org: 'Asah led by Dicoding',
     description:
       'Participating in the Asah 2025 Machine Learning program, focusing on foundational concepts of machine learning, data processing using Python, and the practical application of AI algorithms for technology-based industry use cases.',
     period: 'Aug 2025 - Jan 2026 · 6 mos',
