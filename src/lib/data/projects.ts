@@ -18,6 +18,7 @@ export const projects: Project[] = [
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
     repo: 'https://github.com/AzsaNrD/TEMPE',
     demo: 'https://tempe-two.vercel.app/',
+    image: '/projects/tempe.png',
   },
   {
     slug: 'ru-d1-bot',

@@ -26,6 +26,11 @@ function ExperienceRow({ item }: { item: ExperienceItem }) {
       {item.orgDetail ? (
         <p className="text-muted-foreground/70 mt-1 text-xs leading-relaxed">{item.orgDetail}</p>
       ) : null}
+      {item.description ? (
+        <p className="text-muted-foreground mt-2 max-w-prose text-sm leading-relaxed">
+          {item.description}
+        </p>
+      ) : null}
       <div className="text-muted-foreground/70 mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 font-mono text-[11px] tracking-wider uppercase">
         {item.period ? <span>{item.period}</span> : null}
         {item.period && item.location ? <span aria-hidden>·</span> : null}
