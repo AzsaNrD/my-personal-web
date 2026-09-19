@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Gamepad2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -20,6 +20,11 @@ export function SteamGameImage({ banner, capsule, icon, name, width, height, cla
   const [idx, setIdx] = useState(0);
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useLayoutEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, [idx]);
 
   if (failed) {
     return (
@@ -34,19 +39,14 @@ export function SteamGameImage({ banner, capsule, icon, name, width, height, cla
 
   return (
     <span className={cn('relative inline-block overflow-hidden', className)}>
-      <span
-        aria-hidden
-        className={cn(
-          'bg-muted absolute inset-0 animate-pulse transition-opacity duration-300',
-          loaded ? 'opacity-0' : 'opacity-100',
-        )}
-      />
+      {!loaded && <span aria-hidden className="bg-muted absolute inset-0 animate-pulse" />}
       <Image
         src={sources[idx]}
         alt={name}
         width={width}
         height={height}
         unoptimized
+        ref={imgRef}
         className={cn(
           'h-full w-full transition-opacity duration-300',
           className,

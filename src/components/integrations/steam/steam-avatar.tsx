@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { UserRound } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -15,6 +15,11 @@ type Props = {
 export function SteamAvatar({ src, alt, size, className }: Props) {
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useLayoutEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   if (failed) {
     return (
@@ -30,13 +35,7 @@ export function SteamAvatar({ src, alt, size, className }: Props) {
 
   return (
     <span className={cn('relative inline-block overflow-hidden', className)}>
-      <span
-        aria-hidden
-        className={cn(
-          'bg-muted absolute inset-0 animate-pulse transition-opacity duration-300',
-          loaded ? 'opacity-0' : 'opacity-100',
-        )}
-      />
+      {!loaded && <span aria-hidden className="bg-muted absolute inset-0 animate-pulse" />}
       <Image
         src={src}
         alt={alt}
@@ -44,6 +43,7 @@ export function SteamAvatar({ src, alt, size, className }: Props) {
         height={size}
         unoptimized
         priority
+        ref={imgRef}
         className={cn(
           'h-full w-full transition-opacity duration-300',
           className,
