@@ -165,7 +165,7 @@ function HeroCard({
       <dl className="border-border divide-border grid grid-cols-3 divide-x border-t">
         <div className="px-4 py-3 text-center">
           <dd className="text-foreground font-mono text-xl font-semibold">
-            {summary?.totalGames ?? '—'}
+            {summary?.totalGames ?? '–'}
           </dd>
           <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
             Games owned
@@ -173,7 +173,7 @@ function HeroCard({
         </div>
         <div className="px-4 py-3 text-center">
           <dd className="text-foreground font-mono text-xl font-semibold">
-            {playtime2W ? formatPlaytime(playtime2W) : '—'}
+            {playtime2W ? formatPlaytime(playtime2W) : '–'}
           </dd>
           <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
             Last 2 weeks
