@@ -33,11 +33,9 @@ export function Portfolio() {
                   {String(idx + 1).padStart(2, '0')}
                 </span>
 
-                <ProjectPreview
-                  project={project}
-                  size="sm"
-                  className="hidden shrink-0 sm:block"
-                />
+                <div className="hidden shrink-0 sm:block">
+                  <ProjectPreview project={project} size="sm" />
+                </div>
 
                 <div className="min-w-0 flex-1">
                   <h3 className="text-foreground group-hover:text-primary text-base font-semibold tracking-tight transition-colors sm:text-lg">
