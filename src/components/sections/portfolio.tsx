@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { FadeIn } from '@/components/ui/fade-in';
 import { SectionHeading } from '@/components/layouts/page-header';
+import { ProjectPreview } from '@/components/ui/project-preview';
 import { projects } from '@/lib/data/projects';
 
 export function Portfolio() {
@@ -33,15 +33,11 @@ export function Portfolio() {
                   {String(idx + 1).padStart(2, '0')}
                 </span>
 
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt=""
-                    width={96}
-                    height={64}
-                    className="border-border hidden h-16 w-24 shrink-0 rounded-md border object-cover sm:block"
-                  />
-                ) : null}
+                <ProjectPreview
+                  project={project}
+                  size="sm"
+                  className="hidden shrink-0 sm:block"
+                />
 
                 <div className="min-w-0 flex-1">
                   <h3 className="text-foreground group-hover:text-primary text-base font-semibold tracking-tight transition-colors sm:text-lg">

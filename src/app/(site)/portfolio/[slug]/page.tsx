@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ExternalLink, ImageOff } from 'lucide-react';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/brand-icons';
 import { Button } from '@/components/ui/button';
+import { ProjectPreview } from '@/components/ui/project-preview';
 import { projects } from '@/lib/data/projects';
 
 type RouteParams = { slug: string };
@@ -36,20 +36,7 @@ export default async function ProjectPage({ params }: { params: Promise<RoutePar
         Back to portfolio
       </Link>
 
-      {project.image ? (
-        <Image
-          src={project.image}
-          alt={`${project.title} screenshot`}
-          width={1280}
-          height={800}
-          className="border-border aspect-video w-full rounded-xl border object-cover object-top"
-        />
-      ) : (
-        <div className="border-border text-muted-foreground flex aspect-video w-full flex-col items-center justify-center gap-2 rounded-xl border border-dashed text-sm">
-          <ImageOff size={20} aria-hidden />
-          No preview available
-        </div>
-      )}
+      <ProjectPreview project={project} size="lg" />
 
       <header className="mt-8">
         <h1 className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">

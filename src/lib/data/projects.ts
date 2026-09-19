@@ -7,6 +7,8 @@ export type Project = {
   demo?: string;
   /** Real screenshot of the live demo. Omitted when no public demo exists or a screenshot isn't available yet. */
   image?: string;
+  /** Brand icon shown instead of a screenshot when the project has no public demo to capture. */
+  brand?: 'discord';
 };
 
 export const projects: Project[] = [
@@ -26,6 +28,7 @@ export const projects: Project[] = [
     description:
       'Real-time attendance tracker for Minilemon Studio, integrated with our Discord server and backed by MongoDB.',
     tags: ['Node.js', 'Discord.js', 'MongoDB'],
+    brand: 'discord',
   },
   {
     slug: 'forum-app',
