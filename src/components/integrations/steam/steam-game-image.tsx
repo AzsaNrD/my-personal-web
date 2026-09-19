@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Gamepad2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type Props = {
   banner: string;
@@ -18,6 +19,7 @@ export function SteamGameImage({ banner, capsule, icon, name, width, height, cla
   const sources = [banner, capsule, ...(icon ? [icon] : [])];
   const [idx, setIdx] = useState(0);
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   if (failed) {
     return (
@@ -31,17 +33,32 @@ export function SteamGameImage({ banner, capsule, icon, name, width, height, cla
   }
 
   return (
-    <Image
-      src={sources[idx]}
-      alt={name}
-      width={width}
-      height={height}
-      unoptimized
-      className={className}
-      onError={() => {
-        if (idx < sources.length - 1) setIdx(idx + 1);
-        else setFailed(true);
-      }}
-    />
+    <span className={cn('relative inline-block overflow-hidden', className)}>
+      <span
+        aria-hidden
+        className={cn(
+          'bg-muted absolute inset-0 animate-pulse transition-opacity duration-300',
+          loaded ? 'opacity-0' : 'opacity-100',
+        )}
+      />
+      <Image
+        src={sources[idx]}
+        alt={name}
+        width={width}
+        height={height}
+        unoptimized
+        className={cn(
+          'h-full w-full transition-opacity duration-300',
+          className,
+          loaded ? 'opacity-100' : 'opacity-0',
+        )}
+        onLoad={() => setLoaded(true)}
+        onError={() => {
+          setLoaded(false);
+          if (idx < sources.length - 1) setIdx(idx + 1);
+          else setFailed(true);
+        }}
+      />
+    </span>
   );
 }

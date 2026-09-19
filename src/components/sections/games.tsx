@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import { ExternalLink, Gamepad2 } from 'lucide-react';
 import { games } from '@/lib/data/games';
 import { CopyText } from '@/components/ui/copy-text';
+import { LoadingImage } from '@/components/ui/loading-image';
 import { SteamActivity } from '@/components/sections/steam-activity';
 import { SectionHeading } from '@/components/layouts/page-header';
 
@@ -25,7 +25,7 @@ export function Games() {
               rel="noreferrer noopener"
               className="border-border hover:border-primary/40 bg-card hover:bg-secondary/40 group flex items-center gap-3 rounded-xl border p-3 transition-colors"
             >
-              <Image
+              <LoadingImage
                 src={g.icon}
                 alt=""
                 width={40}

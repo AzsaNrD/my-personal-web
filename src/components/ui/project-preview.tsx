@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import { ImageOff } from 'lucide-react';
 import { DiscordIcon } from '@/components/ui/brand-icons';
+import { LoadingImage } from '@/components/ui/loading-image';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/data/projects';
 
@@ -24,7 +24,7 @@ export function ProjectPreview({
 }) {
   if (project.image) {
     return (
-      <Image
+      <LoadingImage
         src={project.image}
         alt={`${project.title} screenshot`}
         width={size === 'lg' ? 1280 : 96}

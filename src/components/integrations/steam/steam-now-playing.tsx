@@ -1,10 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { Gamepad2 } from 'lucide-react';
 import type { SteamPlayer } from '@/lib/integrations/steam';
 import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
 import { STEAM_POLL_INTERVAL_MS } from '@/lib/constants';
+import { LoadingImage } from '@/components/ui/loading-image';
 
 type Response = { player: SteamPlayer | null };
 
@@ -25,7 +25,7 @@ export function SteamNowPlaying({ initialPlayer }: { initialPlayer: SteamPlayer 
       rel="noreferrer noopener"
       className="border-border hover:border-primary/40 group flex items-center gap-4 rounded-xl border p-4 transition-colors"
     >
-      <Image
+      <LoadingImage
         src={currentGame.bannerUrl}
         alt={`${currentGame.name} cover`}
         width={184}

@@ -1,10 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { Disc3, ExternalLink } from 'lucide-react';
 import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
+import { LoadingImage } from '@/components/ui/loading-image';
 
 type Response = { track: LastfmTrack | null };
 
@@ -31,7 +31,7 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
       className="border-border hover:border-primary/40 group flex items-center gap-4 rounded-xl border p-4 transition-colors"
     >
       {track.image ? (
-        <Image
+        <LoadingImage
           src={track.image}
           alt={`${track.name} cover`}
           width={80}

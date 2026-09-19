@@ -1,12 +1,12 @@
 'use client';
 
 import { useMemo } from 'react';
-import Image from 'next/image';
 import { Disc3 } from 'lucide-react';
 import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
 import { formatRelative } from '@/lib/utils';
+import { LoadingImage } from '@/components/ui/loading-image';
 
 type SerializedTrack = Omit<LastfmTrack, 'playedAt'> & { playedAt: string | null };
 
@@ -54,7 +54,7 @@ export function RecentTracksList({
             className="border-border hover:border-primary/40 hover:bg-secondary/40 group flex items-center gap-3 rounded-xl border p-3 transition-colors"
           >
             {t.image ? (
-              <Image
+              <LoadingImage
                 src={t.image}
                 alt=""
                 width={40}

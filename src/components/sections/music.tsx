@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import { Suspense } from 'react';
 import { Disc3, Music2 } from 'lucide-react';
 import { getNowPlaying, getRecentTracks, getTopTracks } from '@/lib/integrations/lastfm';
 import { NowPlayingCard } from '@/components/integrations/lastfm/now-playing-card';
 import { RecentTracksList } from '@/components/integrations/lastfm/recent-tracks-list';
+import { LoadingImage } from '@/components/ui/loading-image';
 import { SectionHeading } from '@/components/layouts/page-header';
 
 function TrackRow({
@@ -35,7 +35,7 @@ function TrackRow({
           </span>
         ) : null}
         {image ? (
-          <Image
+          <LoadingImage
             src={image}
             alt=""
             width={40}

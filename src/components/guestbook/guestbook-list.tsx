@@ -1,10 +1,10 @@
-import Image from 'next/image';
 import { UserRound } from 'lucide-react';
 import { GithubIcon, DiscordIcon, GoogleIcon } from '@/components/ui/brand-icons';
 import { getGuestbookEntries } from '@/lib/db/guestbook';
 import { siteConfig } from '@/lib/site-config';
 import { auth } from '@/lib/auth';
 import { formatRelative } from '@/lib/utils';
+import { LoadingImage } from '@/components/ui/loading-image';
 import { DeleteButton } from './delete-button';
 
 const OWNER_IDS = new Set(siteConfig.ownerIds);
@@ -58,7 +58,7 @@ export async function GuestbookList() {
               <span aria-hidden className="bg-primary absolute top-0 left-0 h-full w-0.5" />
             )}
             {showAvatar ? (
-              <Image
+              <LoadingImage
                 src={entry.avatar!}
                 alt={displayName}
                 width={36}
