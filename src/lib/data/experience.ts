@@ -3,6 +3,8 @@ export type ExperienceItem = {
   type: 'work' | 'education' | 'program';
   role: string;
   org: string;
+  /** Employment type badge shown next to the role, e.g. "Internship". */
+  employmentType?: string;
   /** Sub-unit or department, shown as a secondary line under org. */
   orgDetail?: string;
   description?: string;
@@ -17,6 +19,7 @@ export const experience: ExperienceItem[] = [
     type: 'work',
     role: 'Programmer / IT Engineer',
     org: 'Badan Siber dan Sandi Negara (BSSN)',
+    employmentType: 'Internship',
     orgDetail:
       'Direktorat Keamanan Siber dan Sandi Teknologi Informasi dan Komunikasi, Media, dan Transportasi, Deputi Bidang Keamanan Siber dan Sandi Perekonomian',
     location: 'Depok, Jawa Barat',
