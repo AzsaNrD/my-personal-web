@@ -5,6 +5,8 @@ export type Project = {
   tags: string[];
   repo?: string;
   demo?: string;
+  /** Real screenshot of the live demo. Omitted when no public demo exists or a screenshot isn't available yet. */
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -32,6 +34,7 @@ export const projects: Project[] = [
     tags: ['React', 'Redux', 'Cypress', 'Storybook'],
     repo: 'https://github.com/AzsaNrD/forum-app',
     demo: 'https://forum-app-sooty.vercel.app/',
+    image: '/projects/forum-app.png',
   },
   {
     slug: 'apex-stat',
@@ -41,5 +44,6 @@ export const projects: Project[] = [
     tags: ['React', 'API'],
     repo: 'https://github.com/AzsaNrD/apexstat',
     demo: 'https://azsanrd.github.io/apexstat/',
+    image: '/projects/apex-stat.png',
   },
 ];

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
-import { GithubIcon } from '@/components/ui/brand-icons';
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 import { FadeIn } from '@/components/ui/fade-in';
 import { SectionHeading } from '@/components/layouts/page-header';
 import { projects } from '@/lib/data/projects';
@@ -20,64 +20,56 @@ export function Portfolio() {
 
       <ol className="border-border mt-8 border-t">
         {projects.map((project, idx) => (
-          <li
-            key={project.slug}
-            className="group border-border hover:bg-secondary/30 border-b transition-colors"
-          >
-            <FadeIn delay={idx * 0.05} className="flex gap-3 py-5 sm:gap-5 sm:py-6">
-              <span
-                aria-hidden
-                className="text-muted-foreground/40 group-hover:text-primary w-6 shrink-0 pt-1 font-mono text-sm tabular-nums transition-colors sm:w-7"
+          <li key={project.slug} className="border-border border-b">
+            <FadeIn delay={idx * 0.05}>
+              <Link
+                href={`/portfolio/${project.slug}`}
+                className="group hover:bg-secondary/30 flex items-start gap-3 py-5 transition-colors sm:gap-5 sm:py-6"
               >
-                {String(idx + 1).padStart(2, '0')}
-              </span>
+                <span
+                  aria-hidden
+                  className="text-muted-foreground/40 group-hover:text-primary w-6 shrink-0 pt-1 font-mono text-sm tabular-nums transition-colors sm:w-7"
+                >
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
 
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-2">
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt=""
+                    width={96}
+                    height={64}
+                    className="border-border hidden h-16 w-24 shrink-0 rounded-md border object-cover sm:block"
+                  />
+                ) : null}
+
+                <div className="min-w-0 flex-1">
                   <h3 className="text-foreground group-hover:text-primary text-base font-semibold tracking-tight transition-colors sm:text-lg">
                     {project.title}
                   </h3>
-                  <div className="-mt-1 flex shrink-0 items-center gap-0.5">
-                    {project.repo && (
-                      <Link
-                        href={project.repo}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        aria-label={`${project.title} repository`}
-                        className="text-muted-foreground hover:text-primary hover:bg-secondary inline-flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
+
+                  <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  <ul className="mt-3 flex flex-wrap gap-1.5">
+                    {project.tags.map((tag) => (
+                      <li
+                        key={tag}
+                        className="bg-muted text-muted-foreground rounded-md px-2 py-0.5 font-mono text-[11px]"
                       >
-                        <GithubIcon size={16} />
-                      </Link>
-                    )}
-                    {project.demo && (
-                      <Link
-                        href={project.demo}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        aria-label={`${project.title} live demo`}
-                        className="text-muted-foreground hover:text-primary hover:bg-secondary inline-flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
-                      >
-                        <ExternalLink size={16} aria-hidden />
-                      </Link>
-                    )}
-                  </div>
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed">
-                  {project.description}
-                </p>
-
-                <ul className="mt-3 flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="bg-muted text-muted-foreground rounded-md px-2 py-0.5 font-mono text-[11px]"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <ArrowRight
+                  size={16}
+                  aria-hidden
+                  className="text-muted-foreground/40 group-hover:text-primary mt-1.5 shrink-0 transition-colors"
+                />
+              </Link>
             </FadeIn>
           </li>
         ))}
