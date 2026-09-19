@@ -28,8 +28,8 @@ export function About() {
             program by Dicoding.
           </p>
           <p>
-            Outside of code I&apos;m usually playing Genshin Impact, watching anime, or listening to
-            EDM. Attack on Titan is one of my favorites.{' '}
+            Outside of code I&apos;m usually playing games like Genshin Impact, watching anime, or
+            listening to EDM. Attack on Titan is one of my favorites.{' '}
             <span className="text-foreground font-medium italic">
               Shinzou wo sasageyo, tatakae!
             </span>
