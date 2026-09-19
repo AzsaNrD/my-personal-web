@@ -21,14 +21,6 @@ export const games: Game[] = [
     meta: 'AR 60 · Asia',
   },
   {
-    slug: 'valorant',
-    name: 'Valorant',
-    icon: '/icons/valorant.svg',
-    identity: 'OrionZen#Void',
-    copyable: true,
-    url: 'https://tracker.gg/valorant/profile/riot/OrionZen%23Void/overview',
-  },
-  {
     slug: 'roblox',
     name: 'Roblox',
     icon: '/icons/roblox.svg',

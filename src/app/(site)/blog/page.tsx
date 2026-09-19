@@ -20,20 +20,7 @@ export default async function BlogIndexPage() {
         eyebrow="Blog"
         jp="記事"
         title="Writings"
-        description={
-          <>
-            Random thoughts and notes. Just things I feel like writing. Subscribe via{' '}
-            <a
-              href="/rss.xml"
-              className="text-primary underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              RSS
-            </a>
-            .
-          </>
-        }
+        description="Random thoughts and notes. Just things I feel like writing."
       />
 
       {posts.length === 0 ? (

@@ -5,6 +5,10 @@ export type Project = {
   tags: string[];
   repo?: string;
   demo?: string;
+  /** Real screenshot of the live demo. Omitted when no public demo exists or a screenshot isn't available yet. */
+  image?: string;
+  /** Brand icon shown instead of a screenshot when the project has no public demo to capture. */
+  brand?: 'discord';
 };
 
 export const projects: Project[] = [
@@ -16,6 +20,7 @@ export const projects: Project[] = [
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
     repo: 'https://github.com/AzsaNrD/TEMPE',
     demo: 'https://tempe-two.vercel.app/',
+    image: '/projects/tempe.png',
   },
   {
     slug: 'ru-d1-bot',
@@ -23,6 +28,7 @@ export const projects: Project[] = [
     description:
       'Real-time attendance tracker for Minilemon Studio, integrated with our Discord server and backed by MongoDB.',
     tags: ['Node.js', 'Discord.js', 'MongoDB'],
+    brand: 'discord',
   },
   {
     slug: 'forum-app',
@@ -32,6 +38,7 @@ export const projects: Project[] = [
     tags: ['React', 'Redux', 'Cypress', 'Storybook'],
     repo: 'https://github.com/AzsaNrD/forum-app',
     demo: 'https://forum-app-sooty.vercel.app/',
+    image: '/projects/forum-app.png',
   },
   {
     slug: 'apex-stat',
@@ -41,5 +48,6 @@ export const projects: Project[] = [
     tags: ['React', 'API'],
     repo: 'https://github.com/AzsaNrD/apexstat',
     demo: 'https://azsanrd.github.io/apexstat/',
+    image: '/projects/apex-stat.png',
   },
 ];

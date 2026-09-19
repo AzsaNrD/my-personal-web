@@ -37,7 +37,7 @@ export function ViewCounter({ slug, trackView = false }: Props) {
   return (
     <span className="text-muted-foreground inline-flex items-center gap-1 font-mono text-xs">
       <Eye size={12} aria-hidden />
-      <span>{count === null ? '—' : count.toLocaleString('id-ID')} views</span>
+      <span>{count === null ? '–' : count.toLocaleString('id-ID')} views</span>
     </span>
   );
 }
