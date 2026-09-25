@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: 'Azsa Nurwahyudi',
   shortName: 'azsa-nrd',
-  role: 'Web Developer',
+  role: 'Web Enthusiast',
   bio: 'I build for the web and learn something new with every project.',
   location: 'Indonesia',
   email: 'azsa.dev@gmail.com',
