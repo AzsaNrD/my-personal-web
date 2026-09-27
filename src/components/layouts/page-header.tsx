@@ -31,23 +31,31 @@ export function PageHeader({
   jp,
   title,
   description,
+  action,
 }: {
   eyebrow: string;
   jp?: string;
   title: string;
   description?: React.ReactNode;
+  /** Optional control shown at the top-right of the header, e.g. an owner-only action. */
+  action?: React.ReactNode;
 }) {
   return (
     <header className="border-border mb-10 border-b pb-8">
       <Eyebrow jp={jp}>{eyebrow}</Eyebrow>
-      <h1 className="text-foreground mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-        {title}
-      </h1>
-      {description ? (
-        <p className="text-muted-foreground mt-3 max-w-prose text-sm leading-relaxed">
-          {description}
-        </p>
-      ) : null}
+      <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">
+            {title}
+          </h1>
+          {description ? (
+            <p className="text-muted-foreground mt-3 max-w-prose text-sm leading-relaxed">
+              {description}
+            </p>
+          ) : null}
+        </div>
+        {action ? <div className="shrink-0">{action}</div> : null}
+      </div>
     </header>
   );
 }

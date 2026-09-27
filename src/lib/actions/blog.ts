@@ -2,10 +2,9 @@
 
 import matter from 'gray-matter';
 import { auth } from '@/lib/auth';
-import { siteConfig } from '@/lib/site-config';
+import { isOwnerKey, userKey } from '@/lib/is-owner';
 import { createRepoFile, repoFileExists } from '@/lib/github-content';
 
-const OWNER_IDS = new Set(siteConfig.ownerIds);
 const POSTS_DIR = 'src/content/posts';
 
 const MAX_TITLE = 120;
@@ -48,12 +47,12 @@ export async function createPost(
     return { ok: false, error: 'Not signed in.' };
   }
 
-  const userKey = `${user.provider}:${user.providerAccountId}`;
-  if (!OWNER_IDS.has(userKey)) {
+  const key = userKey(user.provider, user.providerAccountId);
+  if (!isOwnerKey(key)) {
     return { ok: false, error: 'Not authorized.' };
   }
 
-  const last = lastSubmitByUser.get(userKey);
+  const last = lastSubmitByUser.get(key!);
   if (last && Date.now() - last < COOLDOWN_MS) {
     return { ok: false, error: 'Too fast. Wait a few seconds and try again.' };
   }
@@ -124,6 +123,6 @@ export async function createPost(
     return { ok: false, error: error instanceof Error ? error.message : 'Failed to publish.' };
   }
 
-  lastSubmitByUser.set(userKey, Date.now());
+  lastSubmitByUser.set(key!, Date.now());
   return { ok: true, slug };
 }

@@ -1,18 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { auth } from '@/lib/auth';
-import { siteConfig } from '@/lib/site-config';
+import { isOwnerKey, userKey } from '@/lib/is-owner';
 import { NewPostForm } from '@/components/admin/new-post-form';
 import { PageHeader } from '@/components/layouts/page-header';
 
-const OWNER_IDS = new Set(siteConfig.ownerIds);
-
 async function isOwnerSession(): Promise<boolean> {
   const session = await auth();
-  const user = session?.user;
-  const userKey =
-    user?.provider && user?.providerAccountId ? `${user.provider}:${user.providerAccountId}` : null;
-  return userKey !== null && OWNER_IDS.has(userKey);
+  return isOwnerKey(userKey(session?.user?.provider, session?.user?.providerAccountId));
 }
 
 // Metadata mirrors the real not-found page when unauthorized, so the route's

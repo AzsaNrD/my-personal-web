@@ -7,9 +7,7 @@ import {
   deleteGuestbookEntry,
   getGuestbookEntryById,
 } from '@/lib/db/guestbook';
-import { siteConfig } from '@/lib/site-config';
-
-const OWNER_IDS = new Set(siteConfig.ownerIds);
+import { isOwnerKey, userKey } from '@/lib/is-owner';
 
 const MAX_LENGTH = 280;
 const MIN_LENGTH = 1;
@@ -30,8 +28,8 @@ export async function submitGuestbook(
     return { ok: false, error: 'Please sign in first.' };
   }
 
-  const userKey = `${user.provider}:${user.providerAccountId}`;
-  const last = lastPostByUser.get(userKey);
+  const key = userKey(user.provider, user.providerAccountId)!;
+  const last = lastPostByUser.get(key);
   if (last && Date.now() - last < COOLDOWN_MS) {
     return { ok: false, error: 'Too fast. Wait 30 seconds between messages.' };
   }
@@ -51,7 +49,7 @@ export async function submitGuestbook(
   const anonymous = formData.get('anonymous') === 'on';
 
   await createGuestbookEntry({
-    userId: userKey,
+    userId: key,
     name: user.name ?? 'unknown',
     avatar: user.image ?? null,
     provider: user.provider,
@@ -59,7 +57,7 @@ export async function submitGuestbook(
     anonymous,
   });
 
-  lastPostByUser.set(userKey, Date.now());
+  lastPostByUser.set(key, Date.now());
   revalidatePath('/guestbook');
   return { ok: true };
 }
@@ -72,14 +70,14 @@ export async function deleteGuestbookEntryAction(id: number): Promise<void> {
     throw new Error('Not authenticated');
   }
 
-  const userKey = `${user.provider}:${user.providerAccountId}`;
+  const key = userKey(user.provider, user.providerAccountId);
   const entry = await getGuestbookEntryById(id);
   if (!entry) {
     throw new Error('Entry not found');
   }
 
-  const isOwner = OWNER_IDS.has(userKey);
-  const isAuthor = entry.userId === userKey;
+  const isOwner = isOwnerKey(key);
+  const isAuthor = entry.userId === key;
   if (!isOwner && !isAuthor) {
     throw new Error('Not authorized');
   }

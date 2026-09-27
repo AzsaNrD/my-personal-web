@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Plus } from 'lucide-react';
 import { getAllPosts } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { ViewCounter } from '@/components/blog/view-counter';
 import { PageHeader } from '@/components/layouts/page-header';
+import { Button } from '@/components/ui/button';
+import { auth } from '@/lib/auth';
+import { isOwnerKey, userKey } from '@/lib/is-owner';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -12,7 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
-  const posts = await getAllPosts();
+  const [posts, session] = await Promise.all([getAllPosts(), auth()]);
+  const isOwner = isOwnerKey(userKey(session?.user?.provider, session?.user?.providerAccountId));
 
   return (
     <section className="py-12">
@@ -21,6 +25,19 @@ export default async function BlogIndexPage() {
         jp="記事"
         title="Writings"
         description="Random thoughts and notes. Just things I feel like writing."
+        action={
+          isOwner ? (
+            <Button
+              size="default"
+              className="h-9 gap-1.5 px-3 text-sm"
+              nativeButton={false}
+              render={<Link href="/admin/new-post" />}
+            >
+              <Plus size={15} aria-hidden />
+              New post
+            </Button>
+          ) : null
+        }
       />
 
       {posts.length === 0 ? (

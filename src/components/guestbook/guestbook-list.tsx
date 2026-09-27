@@ -1,21 +1,16 @@
 import { UserRound } from 'lucide-react';
 import { GithubIcon, DiscordIcon, GoogleIcon } from '@/components/ui/brand-icons';
 import { getGuestbookEntries } from '@/lib/db/guestbook';
-import { siteConfig } from '@/lib/site-config';
 import { auth } from '@/lib/auth';
+import { isOwnerKey, userKey } from '@/lib/is-owner';
 import { formatRelative } from '@/lib/utils';
 import { LoadingImage } from '@/components/ui/loading-image';
 import { DeleteButton } from './delete-button';
 
-const OWNER_IDS = new Set(siteConfig.ownerIds);
-
 export async function GuestbookList() {
   const session = await auth();
-  const currentUserKey =
-    session?.user?.provider && session?.user?.providerAccountId
-      ? `${session.user.provider}:${session.user.providerAccountId}`
-      : null;
-  const isOwnerSession = currentUserKey ? OWNER_IDS.has(currentUserKey) : false;
+  const currentUserKey = userKey(session?.user?.provider, session?.user?.providerAccountId);
+  const isOwnerSession = isOwnerKey(currentUserKey);
 
   let entries: Awaited<ReturnType<typeof getGuestbookEntries>>;
   try {
@@ -40,7 +35,7 @@ export async function GuestbookList() {
   return (
     <ul className="space-y-3">
       {entries.map((entry) => {
-        const isOwner = !entry.anonymous && OWNER_IDS.has(entry.userId);
+        const isOwner = !entry.anonymous && isOwnerKey(entry.userId);
         const isAuthor = currentUserKey !== null && entry.userId === currentUserKey;
         const canDelete = isOwnerSession || isAuthor;
         const displayName = entry.anonymous ? 'Anonymous' : entry.name;
