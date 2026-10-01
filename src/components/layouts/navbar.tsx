@@ -19,7 +19,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-background/70 supports-[backdrop-filter]:bg-background/50 border-border/60 sticky top-0 z-40 mb-4 w-full border-b backdrop-blur">
+    <header className="glass-bar sticky top-0 z-40 mb-4 w-full">
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-5 py-4 sm:px-6">
         <Link
           href="/"

@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/brand-icons';
 import { FadeIn } from '@/components/ui/fade-in';
 import { SectionHeading } from '@/components/layouts/page-header';
+import { Tilt } from '@/components/ui/tilt';
 import { siteConfig } from '@/lib/site-config';
 
 type Channel = {
@@ -62,8 +63,7 @@ export function Contact() {
 
       <ul className="mt-8 grid gap-3 sm:grid-cols-2">
         {channels.map(({ label, value, href, icon: Icon, external }, idx) => {
-          const className =
-            'group border-border hover:border-primary/40 hover:bg-secondary/40 flex items-center gap-3 rounded-xl border p-4 transition-colors';
+          const className = 'glass glass-hover group flex items-center gap-3 rounded-xl p-4';
           const inner = (
             <>
               <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
@@ -85,15 +85,17 @@ export function Contact() {
           return (
             <FadeIn key={label} delay={idx * 0.05}>
               <li>
-                {external ? (
-                  <a href={href} target="_blank" rel="noreferrer noopener" className={className}>
-                    {inner}
-                  </a>
-                ) : (
-                  <Link href={href} className={className}>
-                    {inner}
-                  </Link>
-                )}
+                <Tilt>
+                  {external ? (
+                    <a href={href} target="_blank" rel="noreferrer noopener" className={className}>
+                      {inner}
+                    </a>
+                  ) : (
+                    <Link href={href} className={className}>
+                      {inner}
+                    </Link>
+                  )}
+                </Tilt>
               </li>
             </FadeIn>
           );

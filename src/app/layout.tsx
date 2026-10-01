@@ -8,6 +8,7 @@ import { Navbar } from '@/components/layouts/navbar';
 import { Footer } from '@/components/layouts/footer';
 import { ConsoleGreeting } from '@/components/console-greeting';
 import { PageTransition } from '@/components/page-transition';
+import { StarBackdrop } from '@/components/three/star-backdrop';
 import { inter, displayFont, jetbrainsMono } from '@/styles/fonts';
 import { siteConfig } from '@/lib/site-config';
 
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       >
         <ThemeProvider>
           <ConsoleGreeting />
+          <StarBackdrop />
           <div className="scanlines" aria-hidden />
           {/* Navbar sits outside the container so its bar spans the full viewport,
               while its own inner wrapper keeps the content aligned with the page. */}

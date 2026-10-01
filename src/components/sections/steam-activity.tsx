@@ -13,6 +13,7 @@ import {
 import { SteamGameImage } from '@/components/integrations/steam/steam-game-image';
 import { SteamNowPlaying } from '@/components/integrations/steam/steam-now-playing';
 import { SteamAvatar } from '@/components/integrations/steam/steam-avatar';
+import { Tilt } from '@/components/ui/tilt';
 
 async function loadAll(): Promise<{
   player: SteamPlayer | null;
@@ -126,67 +127,69 @@ function HeroCard({
 }) {
   const playtime2W = totalPlaytime2W(recent);
   return (
-    <div className="border-border from-primary/5 to-card relative overflow-hidden rounded-xl border bg-gradient-to-br">
-      <a
-        href={player.profileUrl}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="hover:bg-muted/30 group flex items-center gap-4 p-5 transition-colors"
-      >
-        <SteamAvatar
-          src={player.avatar}
-          alt={player.name}
-          size={80}
-          className="ring-border ring-offset-card size-20 shrink-0 rounded-lg object-cover ring-2 ring-offset-2"
-        />
-        <div className="min-w-0 flex-1">
-          <p className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase">
-            Steam profile
-          </p>
-          <p className="text-foreground group-hover:text-primary mt-0.5 truncate text-xl font-semibold transition-colors">
-            {player.name}
-          </p>
-          <p className="mt-1 inline-flex items-center gap-2 text-xs">
-            {player.currentGame ? (
-              <span className="inline-flex items-center gap-1.5 text-green-400">
-                <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/70" />
-                  <span className="relative inline-flex size-2 rounded-full bg-green-400" />
+    <Tilt max={2}>
+      <div className="glass from-primary/5 relative overflow-hidden rounded-xl bg-gradient-to-br to-transparent">
+        <a
+          href={player.profileUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="hover:bg-muted/30 group flex items-center gap-4 p-5 transition-colors"
+        >
+          <SteamAvatar
+            src={player.avatar}
+            alt={player.name}
+            size={80}
+            className="ring-border ring-offset-card size-20 shrink-0 rounded-lg object-cover ring-2 ring-offset-2"
+          />
+          <div className="min-w-0 flex-1">
+            <p className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase">
+              Steam profile
+            </p>
+            <p className="text-foreground group-hover:text-primary mt-0.5 truncate text-xl font-semibold transition-colors">
+              {player.name}
+            </p>
+            <p className="mt-1 inline-flex items-center gap-2 text-xs">
+              {player.currentGame ? (
+                <span className="inline-flex items-center gap-1.5 text-green-400">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/70" />
+                    <span className="relative inline-flex size-2 rounded-full bg-green-400" />
+                  </span>
+                  <span className="font-medium">Playing {player.currentGame.name}</span>
                 </span>
-                <span className="font-medium">Playing {player.currentGame.name}</span>
-              </span>
-            ) : (
-              <StatusBadge state={player.state} />
-            )}
-          </p>
-        </div>
-        <ArrowUpRight size={18} className="text-muted-foreground shrink-0" aria-hidden />
-      </a>
-      <dl className="border-border divide-border grid grid-cols-3 divide-x border-t">
-        <div className="px-4 py-3 text-center">
-          <dd className="text-foreground font-mono text-xl font-semibold">
-            {summary?.totalGames ?? '–'}
-          </dd>
-          <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
-            Games owned
-          </dt>
-        </div>
-        <div className="px-4 py-3 text-center">
-          <dd className="text-foreground font-mono text-xl font-semibold">
-            {playtime2W ? formatPlaytime(playtime2W) : '–'}
-          </dd>
-          <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
-            Last 2 weeks
-          </dt>
-        </div>
-        <div className="px-4 py-3 text-center">
-          <dd className="text-foreground font-mono text-xl font-semibold">{recent.length}</dd>
-          <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
-            Recent games
-          </dt>
-        </div>
-      </dl>
-    </div>
+              ) : (
+                <StatusBadge state={player.state} />
+              )}
+            </p>
+          </div>
+          <ArrowUpRight size={18} className="text-muted-foreground shrink-0" aria-hidden />
+        </a>
+        <dl className="border-border divide-border grid grid-cols-3 divide-x border-t">
+          <div className="px-4 py-3 text-center">
+            <dd className="text-foreground font-mono text-xl font-semibold">
+              {summary?.totalGames ?? '–'}
+            </dd>
+            <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
+              Games owned
+            </dt>
+          </div>
+          <div className="px-4 py-3 text-center">
+            <dd className="text-foreground font-mono text-xl font-semibold">
+              {playtime2W ? formatPlaytime(playtime2W) : '–'}
+            </dd>
+            <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
+              Last 2 weeks
+            </dt>
+          </div>
+          <div className="px-4 py-3 text-center">
+            <dd className="text-foreground font-mono text-xl font-semibold">{recent.length}</dd>
+            <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
+              Recent games
+            </dt>
+          </div>
+        </dl>
+      </div>
+    </Tilt>
   );
 }
 

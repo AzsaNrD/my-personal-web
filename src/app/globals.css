@@ -86,6 +86,13 @@
   --ring: #047857;
 
   --glow: rgba(4, 120, 87, 0.07);
+  --glow-magenta: transparent;
+  --glass-bg: rgba(255, 255, 255, 0.58);
+  --glass-border: rgba(4, 120, 87, 0.2);
+  --glass-hi: rgba(255, 255, 255, 0.95);
+  --glass-lo: rgba(4, 120, 87, 0.08);
+  --glass-shadow: 0 14px 32px -16px rgba(6, 78, 59, 0.3);
+  --sheen: rgba(255, 255, 255, 0.7);
   --name-glow: transparent;
   /* Scanlines are a dark-mode-only effect; they read as smudged paper on white. */
   --scan: transparent;
@@ -118,6 +125,13 @@
   --ring: #34d399;
 
   --glow: rgba(52, 211, 153, 0.14);
+  --glow-magenta: rgba(232, 121, 249, 0.1);
+  --glass-bg: rgba(13, 15, 18, 0.5);
+  --glass-border: rgba(52, 211, 153, 0.22);
+  --glass-hi: rgba(255, 255, 255, 0.1);
+  --glass-lo: rgba(0, 0, 0, 0.35);
+  --glass-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.75);
+  --sheen: rgba(255, 255, 255, 0.09);
   --name-glow: rgba(52, 211, 153, 0.35);
   --scan: rgba(255, 255, 255, 0.03);
   --magenta: #e879f9;
@@ -187,6 +201,21 @@
     filter: blur(130px);
     background-color: var(--glow);
   }
+  /* Second fixed glow, bottom-right in the magenta accent, so glass panels have
+     light to blur as they scroll past the emerald one top-left. */
+  body::before {
+    content: '';
+    position: fixed;
+    right: -10rem;
+    bottom: -12rem;
+    width: 30rem;
+    height: 30rem;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 9999px;
+    filter: blur(130px);
+    background-color: var(--glow-magenta);
+  }
   body > * {
     position: relative;
     z-index: 1;
@@ -234,6 +263,89 @@
     background-color: color-mix(in oklab, var(--primary) 18%, transparent);
     border-radius: 0.25rem;
     padding: 0 0.2rem;
+  }
+}
+
+@layer components {
+  /* Fixed starfield canvas container; sits under the scanlines and all content. */
+  .starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 1200ms ease;
+  }
+
+  /* Frosted panel: translucent fill, hairline edge, and an inset top/bottom bevel
+     that reads as thickness. Used on the hero panel, navbar, and standalone cards. */
+  .glass {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 var(--glass-hi),
+      inset 0 -1px 0 var(--glass-lo),
+      var(--glass-shadow);
+  }
+  .glass-bar {
+    background-color: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: inset 0 -1px 0 var(--glass-lo);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .glass {
+      backdrop-filter: blur(14px) saturate(140%);
+    }
+    .glass-bar {
+      backdrop-filter: blur(16px) saturate(140%);
+    }
+  }
+  .glass-hover {
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+  .glass-hover:hover {
+    border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+  }
+  .glass-hover:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .glass,
+    .glass-bar {
+      backdrop-filter: none;
+      background-color: var(--card);
+    }
+  }
+
+  /* Pointer tilt: --tilt-x/--tilt-y/--mx/--my are written by <Tilt>. */
+  .tilt {
+    position: relative;
+    border-radius: var(--radius-xl);
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 220ms ease-out;
+  }
+  .tilt[data-tilting='true'] {
+    transition: transform 60ms linear;
+    will-change: transform;
+  }
+  .tilt::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    background: radial-gradient(
+      220px circle at var(--mx, 50%) var(--my, 50%),
+      var(--sheen),
+      transparent 65%
+    );
+  }
+  .tilt[data-tilting='true']::after {
+    opacity: 1;
   }
 }
 
