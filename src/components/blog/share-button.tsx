@@ -30,7 +30,7 @@ export function ShareButton({ title, slug }: Props) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      // clipboard blocked — silent
+      // Clipboard blocked; stay silent.
     }
   }
 

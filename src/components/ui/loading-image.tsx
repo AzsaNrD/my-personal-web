@@ -4,13 +4,11 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import Image, { type ImageProps } from 'next/image';
 import { cn } from '@/lib/utils';
 
-/** Wraps next/image with a pulsing skeleton shown until the image finishes loading. */
 export function LoadingImage({ className, onLoad, ...props }: ImageProps) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // A cached image can finish loading before React attaches the onLoad
-  // listener, which would leave the skeleton stuck on. Catch that case here.
+  // A cached image can finish before onLoad attaches, leaving the skeleton stuck on.
   useLayoutEffect(() => {
     if (imgRef.current?.complete) setLoaded(true);
   }, []);

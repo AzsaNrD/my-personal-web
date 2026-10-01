@@ -25,7 +25,6 @@ function Eyebrow({
   );
 }
 
-/** Shared top-of-page header so every route opens with the same rhythm. */
 export function PageHeader({
   eyebrow,
   jp,
@@ -60,7 +59,6 @@ export function PageHeader({
   );
 }
 
-/** Section heading used inside pages, optionally with a leading icon. */
 export function SectionHeading({
   eyebrow,
   jp,

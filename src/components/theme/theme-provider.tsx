@@ -18,8 +18,7 @@ function getSystemTheme(): Resolved {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-// Dark is this theme's intended look, so it is the default until the visitor
-// explicitly picks light. Return 'system' here to follow the OS setting instead.
+// Dark is the intended look, so it stays the default until the visitor picks light.
 const DEFAULT_THEME: Resolved = 'dark';
 
 function readStored(): Theme {

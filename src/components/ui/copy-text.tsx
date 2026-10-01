@@ -14,7 +14,7 @@ export function CopyText({ value, label }: { value: string; label?: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // ignore
+      // Clipboard blocked; nothing to do.
     }
   };
 

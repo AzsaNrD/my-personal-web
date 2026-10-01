@@ -6,8 +6,7 @@ export const alt = `${siteConfig.name} | ${siteConfig.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-/* Latin-only on purpose: the OG renderer would need a CJK font embedded for the
-   site's Japanese accents, which is not worth the extra payload here. */
+// Latin-only on purpose: embedding a CJK font for the Japanese accents isn't worth the payload.
 export default async function OpengraphImage() {
   return new ImageResponse(
     <div

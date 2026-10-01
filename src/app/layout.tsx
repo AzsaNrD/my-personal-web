@@ -69,8 +69,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <ConsoleGreeting />
           <StarBackdrop />
           <div className="scanlines" aria-hidden />
-          {/* Navbar sits outside the container so its bar spans the full viewport,
-              while its own inner wrapper keeps the content aligned with the page. */}
+          {/* Navbar is outside the container so its bar spans the full viewport. */}
           <div className="flex min-h-dvh flex-col">
             <Navbar />
             <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-5 sm:px-6">

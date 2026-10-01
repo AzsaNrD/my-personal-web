@@ -10,7 +10,6 @@ export function userKey(
   return provider && providerAccountId ? `${provider}:${providerAccountId}` : null;
 }
 
-/** True if this key belongs to the site owner. */
 export function isOwnerKey(key: string | null): boolean {
   return key !== null && OWNER_IDS.has(key);
 }

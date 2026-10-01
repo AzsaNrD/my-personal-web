@@ -6,12 +6,10 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Fonts */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
   --font-display: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand — emerald, the primary accent of the Neo-Tokyo theme */
   --color-brand-50: #ecfdf5;
   --color-brand-100: #d1fae5;
   --color-brand-200: #a7f3d0;
@@ -23,12 +21,11 @@
   --color-brand-800: #065f46;
   --color-brand-900: #064e3b;
 
-  /* Secondary accent — magenta, used sparingly (one corner, side text) */
+  /* Secondary accent: magenta, used sparingly (one corner, side text) */
   --color-accent-magenta: #e879f9;
 }
 
-/* Map shadcn semantic tokens to our palette via CSS vars
-   so components like <Button> follow the theme. */
+/* Map shadcn semantic tokens to the palette so <Button> and friends follow the theme. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -49,8 +46,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  /* Flat, near-square scale so every rounded-* utility stays angular.
-     rounded-full is unaffected, so avatars stay circular. */
+  /* Near-square scale keeps rounded-* angular; rounded-full stays circular. */
   --radius-sm: 1px;
   --radius-md: 2px;
   --radius-lg: 2px;
@@ -58,7 +54,6 @@
 }
 
 :root {
-  /* Angular, not rounded — the theme's corners stay sharp. */
   --radius: 0.25rem;
 
   --background: #ffffff;
@@ -146,8 +141,7 @@
     color-scheme: light dark;
   }
 
-  /* Tailwind's preflight leaves buttons at `cursor: default`; bring the hand back
-     so every button, trigger, and toggle feels clickable. */
+  /* Preflight leaves buttons at `cursor: default`; restore the pointer. */
   button:not(:disabled),
   [role='button']:not([aria-disabled='true']),
   summary {
@@ -160,8 +154,7 @@
     font-family: var(--font-sans);
   }
 
-  /* Headings default to the body font (clean); the display font (Clash Display)
-     is opt-in via the `font-display` utility, reserved for large hero moments. */
+  /* Headings use the body font; Clash Display is opt-in via `font-display` for large hero moments. */
   h1,
   h2,
   h3,
@@ -169,7 +162,6 @@
     letter-spacing: -0.02em;
   }
 
-  /* Scanline overlay — only visible in dark mode (--scan is transparent in light) */
   body {
     position: relative;
   }
@@ -187,7 +179,7 @@
     );
   }
 
-  /* Single ambience glow, top-left — emerald in dark, near-invisible in light */
+  /* Ambient glow, top-left: emerald in dark, near-invisible in light. */
   body::after {
     content: '';
     position: fixed;
@@ -201,8 +193,7 @@
     filter: blur(130px);
     background-color: var(--glow);
   }
-  /* Second fixed glow, bottom-right in the magenta accent, so glass panels have
-     light to blur as they scroll past the emerald one top-left. */
+  /* Second glow, bottom-right in magenta, gives scrolling glass panels light to blur. */
   body::before {
     content: '';
     position: fixed;
@@ -245,7 +236,6 @@
     color: var(--shiki-dark);
   }
 
-  /* Highlighted lines & words from rehype-pretty-code */
   [data-line-numbers] [data-line]::before {
     counter-increment: line;
     content: counter(line);
@@ -267,7 +257,6 @@
 }
 
 @layer components {
-  /* Fixed starfield canvas container; sits under the scanlines and all content. */
   .starfield {
     position: fixed;
     inset: 0;
@@ -276,8 +265,7 @@
     transition: opacity 1200ms ease;
   }
 
-  /* Frosted panel: translucent fill, hairline edge, and an inset top/bottom bevel
-     that reads as thickness. Used on the hero panel, navbar, and standalone cards. */
+  /* Frosted panel: translucent fill, hairline edge, and an inset bevel that reads as thickness. */
   .glass {
     background-color: var(--glass-bg);
     border: 1px solid var(--glass-border);

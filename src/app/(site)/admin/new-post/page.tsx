@@ -10,8 +10,7 @@ async function isOwnerSession(): Promise<boolean> {
   return isOwnerKey(userKey(session?.user?.provider, session?.user?.providerAccountId));
 }
 
-// Metadata mirrors the real not-found page when unauthorized, so the route's
-// existence doesn't leak through the page title before the notFound() render.
+// Mirror the not-found title when unauthorized so the route's existence doesn't leak via metadata.
 export async function generateMetadata(): Promise<Metadata> {
   if (!(await isOwnerSession())) {
     return { title: '404 · Not Found' };

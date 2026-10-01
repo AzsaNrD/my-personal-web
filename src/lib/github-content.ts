@@ -15,7 +15,6 @@ function githubHeaders(): HeadersInit {
   };
 }
 
-/** True if a file already exists at this path on the target branch. */
 export async function repoFileExists(path: string): Promise<boolean> {
   const res = await fetch(`${API_BASE}/contents/${path}?ref=${BRANCH}`, {
     headers: githubHeaders(),
@@ -28,7 +27,7 @@ export async function repoFileExists(path: string): Promise<boolean> {
   return true;
 }
 
-/** Creates a new file at `path` via a real commit to the target branch. Refuses to overwrite an existing file. */
+/** Commits a new file to the target branch; refuses to overwrite an existing one. */
 export async function createRepoFile(path: string, content: string, message: string): Promise<void> {
   const res = await fetch(`${API_BASE}/contents/${path}`, {
     method: 'PUT',

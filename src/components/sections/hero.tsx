@@ -8,7 +8,6 @@ import { siteConfig } from '@/lib/site-config';
 export function Hero() {
   return (
     <section className="relative pt-14 pb-8 md:pt-20 md:pb-10" aria-label="Introduction">
-      {/* Side marker — the theme's single magenta accent */}
       <span
         aria-hidden
         className="text-accent-magenta/35 pointer-events-none absolute top-14 right-0 hidden font-mono text-[10px] tracking-[0.4em] select-none sm:block"

@@ -15,7 +15,7 @@ export function HeroName({ name }: { name: string }) {
 
   return (
     <span className="relative inline-block">
-      {/* Solid accent with a single soft glow — the theme's one glowing element */}
+      {/* The theme's one glowing element. */}
       <span className="text-primary [text-shadow:0_0_28px_var(--name-glow)]">{name}</span>
       {shimmer && (
         <span

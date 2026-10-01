@@ -29,8 +29,7 @@ const PALETTES: Record<'dark' | 'light', Palette> = {
   light: { base: 0x059669, emerald: 0x047857, magenta: 0xa21caf, alpha: 0.32, additive: false },
 };
 
-// Depth parallax lives in the shader: every star shifts by the same world distance,
-// so near stars (small d) move further on screen than far ones.
+// Depth parallax in the shader: near stars (small d) shift further on screen than far ones.
 const VERTEX = /* glsl */ `
   attribute float aSize;
   attribute float aPhase;
