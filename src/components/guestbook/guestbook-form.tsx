@@ -1,9 +1,10 @@
 'use client';
 
-import { useActionState, useEffect, useRef } from 'react';
+import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { submitGuestbook, type SubmitState } from '@/lib/actions/guestbook';
 
@@ -19,36 +20,57 @@ function SubmitButton() {
   );
 }
 
-export function GuestbookForm() {
+export function GuestbookForm({ guest }: { guest: boolean }) {
   const [state, formAction] = useActionState<SubmitState | null, FormData>(submitGuestbook, null);
-  const formRef = useRef<HTMLFormElement>(null);
+  const typed = state && !state.ok ? state.typed : undefined;
 
-  useEffect(() => {
-    if (state?.ok) {
-      formRef.current?.reset();
-    }
-  }, [state]);
+  const hint = guest
+    ? `Max ${MAX_LENGTH} characters. A guest message is reviewed before it appears publicly, and you can see yours right away.`
+    : `Max ${MAX_LENGTH} characters. Message is public.`;
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-3">
+    <form action={formAction} className="space-y-3">
+      {guest && (
+        <>
+          <Input
+            name="name"
+            defaultValue={typed?.name}
+            maxLength={40}
+            autoComplete="nickname"
+            placeholder="Your name (optional)"
+            aria-label="Your name (optional)"
+          />
+          <div aria-hidden className="absolute -left-[9999px]">
+            <label>
+              Website
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
+        </>
+      )}
+
       <Textarea
         name="message"
+        defaultValue={typed?.message}
         required
         minLength={1}
         maxLength={MAX_LENGTH}
         rows={3}
-        placeholder="Write a public message here…"
+        placeholder="Write a message here…"
+        aria-label="Message"
         className="resize-none"
       />
 
-      <label className="text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center gap-2 text-xs transition-colors">
-        <input
-          type="checkbox"
-          name="anonymous"
-          className="border-border text-primary focus:ring-primary h-3.5 w-3.5 rounded"
-        />
-        Post anonymously (your name won&apos;t be shown)
-      </label>
+      {!guest && (
+        <label className="text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center gap-2 text-xs transition-colors">
+          <input
+            type="checkbox"
+            name="anonymous"
+            className="border-border text-primary focus:ring-primary h-3.5 w-3.5 rounded"
+          />
+          Post anonymously (your name won&apos;t be shown)
+        </label>
+      )}
 
       <div className="flex items-center justify-between gap-3">
         <p
@@ -56,10 +78,12 @@ export function GuestbookForm() {
           role={state && !state.ok ? 'alert' : undefined}
         >
           {state?.ok
-            ? 'Message sent. Thanks!'
+            ? state.pending
+              ? 'Thanks! Your message is waiting for approval. Only you can see it until then.'
+              : 'Message sent. Thanks!'
             : state && !state.ok
               ? state.error
-              : `Max ${MAX_LENGTH} characters. Message is public.`}
+              : hint}
         </p>
         <SubmitButton />
       </div>

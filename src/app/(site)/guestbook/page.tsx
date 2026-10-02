@@ -11,7 +11,8 @@ import { PageHeader } from '@/components/layouts/page-header';
 
 export const metadata: Metadata = {
   title: 'Guestbook',
-  description: 'A little corner for visitors to leave a message, share feedback, or just say hi.',
+  description:
+    'A little corner for visitors to leave a message, share feedback, or just say hi. No account needed.',
 };
 
 export default async function GuestbookPage() {
@@ -24,7 +25,7 @@ export default async function GuestbookPage() {
         eyebrow="Guestbook"
         jp="ゲストブック"
         title="Guestbook"
-        description="Want to drop a message or say hi? Sign in to leave a message, and you can choose to post anonymously if you'd rather keep your name hidden."
+        description="Want to drop a message or say hi? No account needed. Guest messages are reviewed before they appear, and if you sign in yours shows up right away."
       />
 
       <div className="border-border bg-card rounded-xl border p-5">
@@ -62,12 +63,17 @@ export default async function GuestbookPage() {
               <SignOutButton />
             </div>
 
-            <GuestbookForm />
+            <GuestbookForm guest={false} />
           </div>
         ) : (
-          <div className="space-y-4">
-            <p className="text-muted-foreground text-sm">Not signed in. Pick one:</p>
-            <SignInButtons />
+          <div className="space-y-5">
+            <GuestbookForm guest />
+            <div className="border-border space-y-3 border-t pt-4">
+              <p className="text-muted-foreground text-sm">
+                Sign in and your message appears right away, without review.
+              </p>
+              <SignInButtons />
+            </div>
           </div>
         )}
       </div>

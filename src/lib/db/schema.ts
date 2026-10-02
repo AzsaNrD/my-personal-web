@@ -10,10 +10,17 @@ export const guestbook = pgTable(
     provider: text('provider').notNull(),
     message: text('message').notNull(),
     anonymous: boolean('anonymous').notNull().default(false),
+    status: text('status', { enum: ['pending', 'approved'] })
+      .notNull()
+      .default('approved'),
+    ipHash: text('ip_hash'),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     deletedAt: timestamp('deleted_at', { withTimezone: true }),
   },
-  (table) => [index('guestbook_created_at_idx').on(table.createdAt.desc())],
+  (table) => [
+    index('guestbook_created_at_idx').on(table.createdAt.desc()),
+    index('guestbook_ip_hash_idx').on(table.ipHash, table.createdAt),
+  ],
 );
 
 export type Guestbook = typeof guestbook.$inferSelect;
