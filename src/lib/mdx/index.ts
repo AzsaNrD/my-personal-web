@@ -18,7 +18,7 @@ const POSTS_DIR = path.join(process.cwd(), 'src', 'content', 'posts');
 const WORDS_PER_MINUTE = 200;
 
 /** Rough reading estimate. Strips code fences so snippets don't inflate the count. */
-function estimateReadingMinutes(content: string): number {
+export function estimateReadingMinutes(content: string): number {
   const prose = content.replace(/```[\s\S]*?```/g, ' ');
   const words = prose.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
