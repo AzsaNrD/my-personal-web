@@ -15,7 +15,15 @@ function formatAgo(ms: number): string {
 }
 
 /** Ticking "Updated 12s ago" label; `at` is the last successful fetch, and nothing shows until there is one. */
-export function UpdatedAgo({ at, className }: { at: number | null; className?: string }) {
+export function UpdatedAgo({
+  at,
+  label = 'Updated',
+  className,
+}: {
+  at: number | null;
+  label?: string;
+  className?: string;
+}) {
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
@@ -28,7 +36,8 @@ export function UpdatedAgo({ at, className }: { at: number | null; className?: s
   if (at === null) return null;
   return (
     <span className={cn('text-muted-foreground font-mono text-[10px] tabular-nums', className)}>
-      Updated {formatAgo(now - at)}
+      {label ? `${label} ` : ''}
+      {formatAgo(now - at)}
     </span>
   );
 }

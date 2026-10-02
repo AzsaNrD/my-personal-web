@@ -65,7 +65,15 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
                 last played
               </span>
             )}
-            <UpdatedAgo at={updatedAt} className="sm:ml-auto" />
+            {track.nowPlaying ? (
+              <UpdatedAgo at={updatedAt} className="sm:ml-auto" />
+            ) : (
+              <UpdatedAgo
+                at={track.playedAt ? new Date(track.playedAt).getTime() : null}
+                label=""
+                className="sm:ml-auto"
+              />
+            )}
           </div>
           <p className="text-foreground group-hover:text-primary mt-1 truncate text-base font-semibold transition-colors">
             {track.name}
