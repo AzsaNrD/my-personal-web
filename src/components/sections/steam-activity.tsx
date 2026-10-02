@@ -13,6 +13,7 @@ import {
 import { SteamGameImage } from '@/components/integrations/steam/steam-game-image';
 import { SteamNowPlaying } from '@/components/integrations/steam/steam-now-playing';
 import { SteamAvatar } from '@/components/integrations/steam/steam-avatar';
+import { PulseLine } from '@/components/ui/pulse-line';
 import { Tilt } from '@/components/ui/tilt';
 
 async function loadAll(): Promise<{
@@ -150,11 +151,8 @@ function HeroCard({
             </p>
             <p className="mt-1 inline-flex items-center gap-2 text-xs">
               {player.currentGame ? (
-                <span className="inline-flex items-center gap-1.5 text-green-400">
-                  <span className="relative flex size-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/70" />
-                    <span className="relative inline-flex size-2 rounded-full bg-green-400" />
-                  </span>
+                <span className="text-primary inline-flex items-center gap-2">
+                  <PulseLine className="w-8" />
                   <span className="font-medium">Playing {player.currentGame.name}</span>
                 </span>
               ) : (

@@ -4,6 +4,7 @@ import { Disc3 } from 'lucide-react';
 import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
+import { Equalizer } from '@/components/ui/equalizer';
 import { LoadingImage } from '@/components/ui/loading-image';
 
 type Response = { track: LastfmTrack | null } | null;
@@ -27,11 +28,8 @@ export function NowPlaying() {
   return (
     <>
       {track.nowPlaying ? (
-        <span className="inline-flex shrink-0 items-center gap-1.5 tracking-wider text-green-400 uppercase">
-          <span className="relative flex size-2 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/70" />
-            <span className="relative inline-flex size-2 rounded-full bg-green-400" />
-          </span>
+        <span className="text-primary inline-flex shrink-0 items-center gap-2 tracking-wider uppercase">
+          <Equalizer />
           Now playing
         </span>
       ) : (

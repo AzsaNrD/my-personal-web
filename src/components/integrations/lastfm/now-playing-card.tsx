@@ -2,18 +2,24 @@
 
 import { Disc3, ExternalLink } from 'lucide-react';
 import type { LastfmTrack } from '@/lib/integrations/lastfm';
-import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
+import { usePolledFetchState } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
+import { Equalizer } from '@/components/ui/equalizer';
 import { LoadingImage } from '@/components/ui/loading-image';
+import { UpdatedAgo } from '@/components/ui/updated-ago';
 import { Tilt } from '@/components/ui/tilt';
 
 type Response = { track: LastfmTrack | null };
 
 export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | null }) {
-  const { track } = usePolledFetch<Response>(
+  const {
+    data: { track },
+    updatedAt,
+  } = usePolledFetchState<Response>(
     '/api/lastfm/now',
     { track: initialTrack },
     LASTFM_POLL_INTERVAL_MS,
+    { fetchOnMount: true },
   );
 
   if (!track) {
@@ -48,22 +54,18 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
           </span>
         )}
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5">
             {track.nowPlaying ? (
-              <span className="inline-flex items-center gap-1.5">
-                <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/70" />
-                  <span className="relative inline-flex size-2 rounded-full bg-green-400" />
-                </span>
-                <span className="font-mono text-[10px] tracking-wider text-green-400 uppercase">
-                  now playing
-                </span>
+              <span className="text-primary inline-flex items-center gap-2">
+                <Equalizer />
+                <span className="font-mono text-[10px] tracking-wider uppercase">now playing</span>
               </span>
             ) : (
               <span className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase">
                 last played
               </span>
             )}
+            <UpdatedAgo at={updatedAt} className="sm:ml-auto" />
           </div>
           <p className="text-foreground group-hover:text-primary mt-1 truncate text-base font-semibold transition-colors">
             {track.name}

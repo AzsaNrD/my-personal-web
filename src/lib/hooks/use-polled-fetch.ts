@@ -6,13 +6,16 @@ type Options = {
   fetchOnMount?: boolean;
 };
 
-export function usePolledFetch<T>(
+type PolledState<T> = { data: T; updatedAt: number | null };
+
+/** Like `usePolledFetch`, plus the time of the last successful fetch (null until one succeeds). */
+export function usePolledFetchState<T>(
   url: string,
   initialData: T,
   intervalMs: number,
   { fetchOnMount = false }: Options = {},
-): T {
-  const [data, setData] = useState<T>(initialData);
+): PolledState<T> {
+  const [state, setState] = useState<PolledState<T>>({ data: initialData, updatedAt: null });
 
   useEffect(() => {
     let cancelled = false;
@@ -20,7 +23,7 @@ export function usePolledFetch<T>(
       try {
         const res = await fetch(url, { cache: 'no-store' });
         const json = (await res.json()) as T;
-        if (!cancelled) setData(json);
+        if (!cancelled) setState({ data: json, updatedAt: Date.now() });
       } catch {
         // keep last known good state on transient errors
       }
@@ -33,5 +36,14 @@ export function usePolledFetch<T>(
     };
   }, [url, intervalMs, fetchOnMount]);
 
-  return data;
+  return state;
+}
+
+export function usePolledFetch<T>(
+  url: string,
+  initialData: T,
+  intervalMs: number,
+  options?: Options,
+): T {
+  return usePolledFetchState(url, initialData, intervalMs, options).data;
 }

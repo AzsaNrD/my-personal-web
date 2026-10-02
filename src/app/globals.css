@@ -335,6 +335,36 @@
   .tilt[data-tilting='true']::after {
     opacity: 1;
   }
+
+  .eq-bar {
+    transform-origin: bottom;
+    transform: scaleY(var(--eq-h, 0.6));
+    animation: eq-bounce 1s ease-in-out infinite;
+  }
+
+  .pulse-trace {
+    stroke-dasharray: 22 200;
+    animation: pulse-trace 1.8s linear infinite;
+  }
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pulse-trace {
+  from {
+    stroke-dashoffset: 22;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
 }
 
 @keyframes blink {

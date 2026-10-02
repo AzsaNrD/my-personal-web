@@ -2,18 +2,26 @@
 
 import { Gamepad2 } from 'lucide-react';
 import type { SteamPlayer } from '@/lib/integrations/steam';
-import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
+import { usePolledFetchState } from '@/lib/hooks/use-polled-fetch';
 import { STEAM_POLL_INTERVAL_MS } from '@/lib/constants';
 import { LoadingImage } from '@/components/ui/loading-image';
+import { PulseLine } from '@/components/ui/pulse-line';
+import { UpdatedAgo } from '@/components/ui/updated-ago';
 import { Tilt } from '@/components/ui/tilt';
 
 type Response = { player: SteamPlayer | null };
 
 export function SteamNowPlaying({ initialPlayer }: { initialPlayer: SteamPlayer | null }) {
-  const { player } = usePolledFetch<Response>(
+  const {
+    data: { player },
+    updatedAt,
+  } = usePolledFetchState<Response>(
     '/api/steam/now',
     { player: initialPlayer },
     STEAM_POLL_INTERVAL_MS,
+    {
+      fetchOnMount: true,
+    },
   );
 
   if (!player?.currentGame) return null;
@@ -36,14 +44,12 @@ export function SteamNowPlaying({ initialPlayer }: { initialPlayer: SteamPlayer 
           className="h-[34px] w-[92px] shrink-0 rounded-sm object-cover"
         />
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400/70" />
-              <span className="relative inline-flex size-2 rounded-full bg-green-400" />
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5">
+            <span className="text-primary inline-flex items-center gap-2">
+              <PulseLine />
+              <span className="font-mono text-[10px] tracking-wider uppercase">in game</span>
             </span>
-            <span className="font-mono text-[10px] tracking-wider text-green-400 uppercase">
-              in game
-            </span>
+            <UpdatedAgo at={updatedAt} className="sm:ml-auto" />
           </div>
           <p className="text-foreground group-hover:text-primary mt-1 truncate text-base font-semibold transition-colors">
             {currentGame.name}
