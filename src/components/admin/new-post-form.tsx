@@ -181,7 +181,7 @@ export function NewPostForm() {
               id="content"
               name="content"
               rows={16}
-              className="font-mono text-sm"
+              className="font-mono text-sm [font-variant-ligatures:none]"
               placeholder="Write the post here…"
             />
           </Tabs.Panel>
