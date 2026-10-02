@@ -1,7 +1,8 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+import { Dialog } from '@base-ui/react/dialog';
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,9 +24,11 @@ function SubmitButton() {
 export function GuestbookForm({ guest }: { guest: boolean }) {
   const [state, formAction] = useActionState<SubmitState | null, FormData>(submitGuestbook, null);
   const typed = state && !state.ok ? state.typed : undefined;
+  const [dismissed, setDismissed] = useState<SubmitState | null>(null);
+  const noticeOpen = state?.ok === true && state.pending && dismissed !== state;
 
   const hint = guest
-    ? `Max ${MAX_LENGTH} characters. A guest message is reviewed before it appears publicly, and you can see yours right away.`
+    ? `Max ${MAX_LENGTH} characters.`
     : `Max ${MAX_LENGTH} characters. Message is public.`;
 
   return (
@@ -87,6 +90,24 @@ export function GuestbookForm({ guest }: { guest: boolean }) {
         </p>
         <SubmitButton />
       </div>
+
+      <Dialog.Root open={noticeOpen} onOpenChange={(open) => !open && setDismissed(state)}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/40 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs" />
+          <Dialog.Popup className="bg-card text-card-foreground border-border fixed top-1/2 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border p-5 shadow-xl transition duration-150 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0">
+            <Dialog.Title className="text-foreground text-base font-semibold">
+              Message received
+            </Dialog.Title>
+            <Dialog.Description className="text-muted-foreground mt-1 text-sm">
+              Thanks for writing! Guest messages are reviewed first, so yours will appear publicly
+              once it&apos;s approved. Until then only you can see it on this page.
+            </Dialog.Description>
+            <div className="mt-5 flex justify-end">
+              <Dialog.Close render={<Button size="sm">Got it</Button>} />
+            </div>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
     </form>
   );
 }
