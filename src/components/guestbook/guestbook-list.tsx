@@ -1,6 +1,6 @@
 import { UserRound } from 'lucide-react';
 import { GithubIcon, DiscordIcon, GoogleIcon } from '@/components/ui/brand-icons';
-import { getGuestbookEntries, getPendingEntries } from '@/lib/db/guestbook';
+import { getDeletedEntries, getGuestbookEntries, getPendingEntries } from '@/lib/db/guestbook';
 import type { Guestbook } from '@/lib/db/schema';
 import { auth } from '@/lib/auth';
 import { getGuestKey } from '@/lib/guestbook-guest';
@@ -99,14 +99,16 @@ export async function GuestbookList() {
 
   let entries: Guestbook[];
   let pending: Guestbook[];
+  let deleted: Guestbook[];
   try {
-    [entries, pending] = await Promise.all([
+    [entries, pending, deleted] = await Promise.all([
       getGuestbookEntries(),
       isOwnerSession
         ? getPendingEntries()
         : currentKey?.startsWith('guest:')
           ? getPendingEntries(currentKey)
           : Promise.resolve([]),
+      isOwnerSession ? getDeletedEntries() : Promise.resolve([]),
     ]);
   } catch (error) {
     console.error('[guestbook-list]', error);
@@ -154,6 +156,36 @@ export async function GuestbookList() {
             />
           ))}
         </ul>
+      )}
+
+      {deleted.length > 0 && (
+        <details className="border-border rounded-xl border border-dashed p-4">
+          <summary className="text-muted-foreground cursor-pointer font-mono text-[10px] tracking-wider uppercase">
+            Deleted messages, only you can see these ({deleted.length})
+          </summary>
+          <ul className="mt-3 space-y-3">
+            {deleted.map((entry) => (
+              <li key={entry.id} className="text-sm">
+                <p className="text-muted-foreground text-[11px]">
+                  <span className="text-foreground font-medium">
+                    {entry.anonymous ? 'Anonymous' : entry.name}
+                  </span>
+                  {` · ${entry.provider} · was ${entry.status} · posted `}
+                  <time dateTime={entry.createdAt.toISOString()}>
+                    {formatRelative(entry.createdAt)}
+                  </time>
+                  {' · deleted '}
+                  <time dateTime={entry.deletedAt!.toISOString()}>
+                    {formatRelative(entry.deletedAt!)}
+                  </time>
+                </p>
+                <p className="text-muted-foreground mt-1 break-words whitespace-pre-wrap">
+                  {entry.message}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </details>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { and, count, desc, eq, gt, isNull } from 'drizzle-orm';
+import { and, count, desc, eq, gt, isNotNull, isNull } from 'drizzle-orm';
 import { getDb } from './index';
 import { guestbook, type Guestbook, type NewGuestbook } from './schema';
 
@@ -21,6 +21,16 @@ export async function getPendingEntries(userId?: string): Promise<Guestbook[]> {
     .where(and(...conditions))
     .orderBy(desc(guestbook.createdAt))
     .limit(100);
+}
+
+/** Soft-deleted entries, newest deletion first. Owner view only. */
+export async function getDeletedEntries(): Promise<Guestbook[]> {
+  return getDb()
+    .select()
+    .from(guestbook)
+    .where(isNotNull(guestbook.deletedAt))
+    .orderBy(desc(guestbook.deletedAt))
+    .limit(50);
 }
 
 export async function getGuestbookEntryById(id: number): Promise<Guestbook | null> {
