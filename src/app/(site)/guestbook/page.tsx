@@ -69,9 +69,7 @@ export default async function GuestbookPage() {
           <div className="space-y-5">
             <GuestbookForm guest />
             <div className="border-border space-y-3 border-t pt-4">
-              <p className="text-muted-foreground text-sm">
-                Sign in and your message appears right away, without review.
-              </p>
+              <p className="text-muted-foreground text-sm">Or sign in to post with your name.</p>
               <SignInButtons />
             </div>
           </div>
