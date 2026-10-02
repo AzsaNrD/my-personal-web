@@ -25,7 +25,7 @@ export default async function GuestbookPage() {
         eyebrow="Guestbook"
         jp="ゲストブック"
         title="Guestbook"
-        description="Want to drop a message or say hi? No account needed. Guest messages are reviewed before they appear, and if you sign in yours shows up right away."
+        description="Want to drop a message or say hi? No account needed."
       />
 
       <div className="border-border bg-card rounded-xl border p-5">
