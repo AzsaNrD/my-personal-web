@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getViews, incrementView } from '@/lib/db/views';
+import { getViews, recordView } from '@/lib/db/views';
+import { getIpHash } from '@/lib/ip-hash';
 import { getAllSlugs } from '@/lib/mdx';
 
 const MAX_SLUG_LENGTH = 100;
@@ -33,7 +34,8 @@ export async function POST(_req: Request, { params }: { params: Promise<{ slug: 
     return NextResponse.json({ count: 0 }, { status: 400 });
   }
   try {
-    const count = await incrementView(slug);
+    const visitor = await getIpHash();
+    const count = visitor ? await recordView(slug, visitor) : await getViews(slug);
     return NextResponse.json({ count });
   } catch (error) {
     console.error('[views/post]', error);

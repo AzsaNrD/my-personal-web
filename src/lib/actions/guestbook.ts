@@ -11,7 +11,8 @@ import {
   getGuestbookEntryById,
   getLastEntryAt,
 } from '@/lib/db/guestbook';
-import { ensureGuestKey, getGuestKey, getIpHash } from '@/lib/guestbook-guest';
+import { ensureGuestKey, getGuestKey } from '@/lib/guestbook-guest';
+import { getIpHash } from '@/lib/ip-hash';
 import { isOwnerKey, userKey } from '@/lib/is-owner';
 
 const MAX_LENGTH = 280;

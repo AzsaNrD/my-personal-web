@@ -1,4 +1,13 @@
-import { pgTable, serial, text, timestamp, index, integer, boolean } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  index,
+  integer,
+  boolean,
+  primaryKey,
+} from 'drizzle-orm/pg-core';
 
 export const guestbook = pgTable(
   'guestbook',
@@ -32,3 +41,14 @@ export const views = pgTable('views', {
 });
 
 export type View = typeof views.$inferSelect;
+
+/** One row per visitor per article per day, so a view can be counted once even if the endpoint is hit directly. */
+export const viewHits = pgTable(
+  'view_hits',
+  {
+    slug: text('slug').notNull(),
+    visitor: text('visitor').notNull(),
+    day: text('day').notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.slug, table.visitor, table.day] })],
+);

@@ -36,6 +36,13 @@
       "when": 1790926581382,
       "tag": "0004_flashy_sleeper",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790929330512,
+      "tag": "0005_curly_mandrill",
+      "breakpoints": true
     }
   ]
 }
