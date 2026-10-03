@@ -115,7 +115,7 @@ export default function StarField() {
     const scene = new Scene();
     const camera = new PerspectiveCamera(FOV, 1, 0.1, 100);
 
-    const MAX_STARS = 1100;
+    const MAX_STARS = 600;
     const geometry = new BufferGeometry();
     const positions = new Float32Array(MAX_STARS * 3);
     const sizes = new Float32Array(MAX_STARS);
@@ -186,7 +186,7 @@ export default function StarField() {
       const aspect = w / h;
       camera.aspect = aspect;
       camera.updateProjectionMatrix();
-      const count = w < 768 ? 550 : MAX_STARS;
+      const count = w < 768 ? 300 : MAX_STARS;
       // Mobile toolbars change innerHeight while scrolling; only re-roll on real shape changes.
       if (generatedAspect === 0 || Math.abs(aspect - generatedAspect) / generatedAspect > 0.15) {
         generate(aspect, count);
