@@ -83,6 +83,7 @@ export async function createPost(
           .map((t) => t.slice(0, MAX_TAG_LENGTH))
       : [];
   const draft = formData.get('draft') === 'on';
+  const lang = formData.get('lang') === 'en' ? 'en' : 'id';
 
   if (title.length < 1 || title.length > MAX_TITLE) {
     return { ok: false, error: `Title must be 1-${MAX_TITLE} characters.` };
@@ -115,7 +116,7 @@ export async function createPost(
     return { ok: false, error: `A post with the slug "${slug}" already exists.` };
   }
 
-  const file = matter.stringify(`\n${content}\n`, { title, description, date, tags, draft });
+  const file = matter.stringify(`\n${content}\n`, { title, description, date, tags, draft, lang });
 
   try {
     await createRepoFile(path, file, `feat(blog): add post "${title}"`);

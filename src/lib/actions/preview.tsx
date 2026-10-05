@@ -11,7 +11,13 @@ import { PostHeader, PostProse } from '@/components/blog/post-layout';
 
 const MAX_CONTENT = 200_000;
 
-export type PreviewInput = { title: string; description: string; date: string; content: string };
+export type PreviewInput = {
+  title: string;
+  description: string;
+  date: string;
+  content: string;
+  lang: 'id' | 'en';
+};
 export type PreviewState = { ok: true; node: ReactNode } | { ok: false; error: string };
 
 const isValidDate = (value: string) =>
@@ -24,6 +30,7 @@ export async function renderPostPreview(input: PreviewInput): Promise<PreviewSta
   if (!isOwnerKey(key)) return { ok: false, error: 'Not authorized.' };
 
   const { title, description, date, content } = input;
+  const lang = input.lang === 'en' ? 'en' : 'id';
   if (![title, description, date, content].every((v) => typeof v === 'string')) {
     return { ok: false, error: 'Invalid preview request.' };
   }
@@ -44,8 +51,9 @@ export async function renderPostPreview(input: PreviewInput): Promise<PreviewSta
             description={description.trim()}
             date={isValidDate(date) ? date : new Date().toISOString().slice(0, 10)}
             readingMinutes={estimateReadingMinutes(content)}
+            lang={lang}
           />
-          <PostProse>{body}</PostProse>
+          <PostProse lang={lang}>{body}</PostProse>
         </>
       ),
     };

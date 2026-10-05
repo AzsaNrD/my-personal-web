@@ -13,14 +13,16 @@ export function Hero() {
         className="text-accent-magenta/35 pointer-events-none absolute top-14 right-0 hidden font-mono text-[10px] tracking-[0.4em] select-none sm:block"
         style={{ writingMode: 'vertical-rl' }}
       >
-        光 · {new Date().getFullYear()}
+        <span lang="ja">光</span> · {new Date().getFullYear()}
       </span>
 
       <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase">
         <span className="bg-primary h-3 w-0.5 shrink-0" aria-hidden />
         <span className="text-primary">{siteConfig.role}</span>
         <span className="text-muted-foreground/50">/</span>
-        <span className="text-muted-foreground">インドネシア</span>
+        <span lang="ja" className="text-muted-foreground">
+          インドネシア
+        </span>
       </div>
 
       <h1 className="font-display mt-4 text-4xl font-bold tracking-tight md:text-6xl">

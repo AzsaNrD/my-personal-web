@@ -88,6 +88,7 @@ export function NewPostForm() {
       description: text(data, 'description'),
       date: text(data, 'date'),
       content: text(data, 'content'),
+      lang: text(data, 'lang') === 'en' ? ('en' as const) : ('id' as const),
     };
     const key = JSON.stringify(input);
     const justOpened = lastTab.current !== tab;
@@ -149,12 +150,27 @@ export function NewPostForm() {
         <Input id="description" name="description" maxLength={300} />
       </Field>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         <Field id="date" label="Date">
           <Input id="date" name="date" type="date" defaultValue={today} />
         </Field>
         <Field id="tags" label="Tags (comma separated)">
           <Input id="tags" name="tags" placeholder="intro, meta" />
+        </Field>
+        <Field id="lang" label="Language">
+          <select
+            id="lang"
+            name="lang"
+            defaultValue="id"
+            className="border-input focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 h-8 w-full rounded-lg border bg-transparent px-2 text-sm outline-none focus-visible:ring-3"
+          >
+            <option value="id" className="bg-card">
+              Indonesian
+            </option>
+            <option value="en" className="bg-card">
+              English
+            </option>
+          </select>
         </Field>
       </div>
 

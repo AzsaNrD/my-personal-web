@@ -2,12 +2,15 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import matter from 'gray-matter';
 
+export type PostLang = 'id' | 'en';
+
 export type PostFrontmatter = {
   title: string;
   description: string;
   date: string;
   tags?: string[];
   draft?: boolean;
+  lang?: PostLang;
 };
 
 export type PostMeta = PostFrontmatter & { slug: string; readingMinutes: number };
@@ -48,6 +51,7 @@ async function readPostFile(file: string): Promise<Post | null> {
     date: fm.date,
     tags: fm.tags ?? [],
     draft: fm.draft ?? false,
+    lang: fm.lang === 'en' ? 'en' : 'id',
     readingMinutes: estimateReadingMinutes(content),
     content,
   };

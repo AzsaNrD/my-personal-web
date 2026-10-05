@@ -18,7 +18,9 @@ function Eyebrow({
           <span className="text-muted-foreground/40" aria-hidden>
             /
           </span>
-          <span className="text-muted-foreground normal-case">{jp}</span>
+          <span lang="ja" className="text-muted-foreground normal-case">
+            {jp}
+          </span>
         </>
       ) : null}
     </p>
@@ -44,9 +46,7 @@ export function PageHeader({
       <Eyebrow jp={jp}>{eyebrow}</Eyebrow>
       <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">
-            {title}
-          </h1>
+          <h1 className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">{title}</h1>
           {description ? (
             <p className="text-muted-foreground mt-3 max-w-prose text-sm leading-relaxed">
               {description}

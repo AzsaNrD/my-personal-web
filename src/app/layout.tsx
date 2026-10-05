@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   openGraph: {
     type: 'website',
-    locale: 'id_ID',
+    locale: 'en_US',
     url: siteConfig.url,
     siteName: siteConfig.name,
     title: `${siteConfig.name} | ${siteConfig.role}`,
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: {
-    canonical: '/',
+    canonical: './',
     types: { 'application/rss+xml': `${siteConfig.url}/rss.xml` },
   },
   verification: {
@@ -58,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <ThemeScript />
       </head>
