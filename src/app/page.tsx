@@ -31,8 +31,8 @@ export default function Home() {
       <JsonLd data={website} />
       <Hero />
       <About />
-      <Experience />
       <Portfolio />
+      <Experience />
       <Contact />
     </>
   );

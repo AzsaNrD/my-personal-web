@@ -12,8 +12,8 @@ export function About() {
       <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
         <FadeIn className="text-muted-foreground space-y-4 leading-relaxed">
           <p className="text-foreground/90 text-lg leading-relaxed">
-            I&apos;m a recent Information Systems graduate from Universitas Gunadarma, and most of
-            my time goes into building web apps that solve real problems.
+            I&apos;m an Information Systems graduate from Universitas Gunadarma. I build web apps,
+            and I&apos;m exploring cybersecurity along the way.
           </p>
           <p>
             I learn best by shipping, and I also gained experience in machine learning through Asah,

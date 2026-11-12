@@ -22,7 +22,8 @@ export function Portfolio() {
 
       <ol className="mt-10 grid gap-5 md:grid-cols-2">
         {projects.map((project, idx) => {
-          const featured = idx === 0;
+          // Only an odd count needs a full-width lead card; an even count pairs up cleanly.
+          const featured = idx === 0 && projects.length % 2 === 1;
           return (
             <li key={project.slug} className={cn(featured && 'md:col-span-2')}>
               <FadeIn delay={(idx % 2) * 0.08} className="h-full">
