@@ -81,7 +81,10 @@ export function Experience() {
           const items = experience.filter((item) => item.type === type);
           if (!items.length) return null;
           return (
-            <FadeIn key={type} className="grid gap-5 lg:grid-cols-[9rem_1fr] lg:gap-8">
+            <FadeIn
+              key={type}
+              className="grid grid-cols-1 gap-5 lg:grid-cols-[9rem_1fr] lg:gap-8 [&>*]:min-w-0"
+            >
               <div className="lg:sticky lg:top-24 lg:self-start">
                 <p className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
                   {CATEGORY_META[type].label}

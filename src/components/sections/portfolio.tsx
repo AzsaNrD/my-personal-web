@@ -20,7 +20,7 @@ export function Portfolio() {
         />
       </FadeIn>
 
-      <ol className="mt-10 grid gap-5 md:grid-cols-2">
+      <ol className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 [&>*]:min-w-0">
         {projects.map((project, idx) => {
           // Only an odd count needs a full-width lead card; an even count pairs up cleanly.
           const featured = idx === 0 && projects.length % 2 === 1;

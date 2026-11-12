@@ -26,7 +26,7 @@ export function NowPlaying() {
   return (
     <div
       className={cn(
-        'border-border bg-secondary/40 text-muted-foreground mt-7 inline-flex max-w-full items-center gap-2 border px-3 py-1.5 font-mono text-xs transition-colors',
+        'border-border bg-secondary/40 text-muted-foreground mt-7 inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 border px-3 py-1.5 font-mono text-xs transition-colors sm:flex-nowrap',
         track?.nowPlaying &&
           'np-border bg-primary/5 border-transparent py-2 shadow-[0_0_24px_-8px_var(--glow-strong)]',
         isStale && 'opacity-70',
@@ -72,7 +72,7 @@ function NowPlayingContent({
         href={track.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="hover:text-primary inline-flex max-w-full min-w-0 items-center gap-2 transition-colors"
+        className="hover:text-primary inline-flex max-w-full min-w-0 basis-full items-center gap-2 transition-colors sm:basis-auto"
       >
         <span
           className={cn(

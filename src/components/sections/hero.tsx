@@ -45,7 +45,7 @@ export function Hero() {
         className="grid-bg pointer-events-none absolute top-0 left-1/2 -z-10 h-[34rem] w-screen -translate-x-1/2"
       />
 
-      <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
+      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 [&>*]:min-w-0">
         <div className="animate-[rise-in_0.7s_ease-out_both]">
           <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase">
             <span className="text-primary/60" aria-hidden>

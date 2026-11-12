@@ -23,7 +23,7 @@ const eyebrowClass = 'text-muted-foreground font-mono text-[10px] tracking-[0.2e
 export function Contact() {
   return (
     <section id="contact" className="scroll-mt-20 py-14" aria-labelledby="contact-heading">
-      <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14 [&>*]:min-w-0">
         <FadeIn className="lg:sticky lg:top-24 lg:self-start">
           <SectionHeading
             eyebrow="Contact"

@@ -9,7 +9,7 @@ export function About() {
         <SectionHeading eyebrow="About" jp="自己紹介" title="About me" titleId="about-heading" />
       </FadeIn>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 [&>*]:min-w-0">
         <FadeIn className="text-muted-foreground space-y-4 leading-relaxed">
           <p className="text-foreground/90 text-lg leading-relaxed">
             I&apos;m an Information Systems graduate from Universitas Gunadarma. I build web apps,
