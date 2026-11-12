@@ -7,7 +7,6 @@ import { Visualizer } from '@/components/ui/visualizer';
 import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetchState } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
-import { Equalizer } from '@/components/ui/equalizer';
 import { LoadingImage } from '@/components/ui/loading-image';
 import { UpdatedAgo } from '@/components/ui/updated-ago';
 import { Tilt } from '@/components/ui/tilt';
@@ -55,11 +54,12 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
                   width={80}
                   height={80}
                   unoptimized
-                  className="absolute inset-0 size-full scale-150 object-cover opacity-30 blur-2xl saturate-150"
+                  // The blurred cover muddies a light background, so it only shows in dark mode.
+                  className="absolute inset-0 hidden size-full scale-150 object-cover opacity-30 blur-2xl saturate-150 dark:block"
                 />
               ) : null}
-              <span className="from-primary/10 absolute inset-0 bg-gradient-to-r to-transparent" />
-              <Visualizer className="absolute inset-x-4 bottom-0 h-6 opacity-50" />
+              <span className="from-primary/10 absolute inset-0 bg-gradient-to-r via-[var(--cyan)]/5 to-transparent" />
+              <Visualizer className="absolute inset-x-4 bottom-0 h-6 opacity-70 dark:opacity-50" />
             </span>
           </>
         ) : null}
@@ -89,7 +89,7 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
           <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5">
             {track.nowPlaying ? (
               <span className="text-primary inline-flex items-center gap-2">
-                <Equalizer />
+                <span aria-hidden className="bg-primary ping-dot relative size-2 rounded-full" />
                 <span className="font-mono text-[10px] tracking-wider uppercase">now playing</span>
               </span>
             ) : (

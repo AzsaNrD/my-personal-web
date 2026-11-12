@@ -561,7 +561,7 @@
       var(--magenta),
       var(--primary)
     );
-    animation: np-spin 4s linear infinite;
+    animation: np-spin 8s linear infinite;
   }
 
   /* Same gradient as a 1px animated border; pair with a transparent border on the element. */
