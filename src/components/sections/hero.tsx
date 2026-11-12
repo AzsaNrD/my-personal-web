@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Mail, Music2 } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Marquee } from '@/components/ui/marquee';
 import { Tilt } from '@/components/ui/tilt';
@@ -96,10 +96,7 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="border-border bg-secondary/40 text-muted-foreground mt-7 inline-flex max-w-full items-center gap-2 border px-3 py-1.5 font-mono text-xs">
-            <Music2 size={13} className="text-primary shrink-0" aria-hidden />
-            <NowPlaying />
-          </div>
+          <NowPlaying />
         </div>
 
         <div className="animate-[rise-in_0.8s_0.15s_ease-out_both]">

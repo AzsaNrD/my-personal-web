@@ -551,6 +551,62 @@
     stroke-dasharray: 22 200;
     animation: pulse-trace 1.8s linear infinite;
   }
+
+  /* Rotating tri-colour gradient: a ring around cover art while a track plays. */
+  .np-ring {
+    background: conic-gradient(
+      from var(--np-angle),
+      var(--primary),
+      var(--cyan),
+      var(--magenta),
+      var(--primary)
+    );
+    animation: np-spin 4s linear infinite;
+  }
+
+  /* Same gradient as a 1px animated border; pair with a transparent border on the element. */
+  .np-border {
+    position: relative;
+  }
+  .np-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1px;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--np-angle),
+      var(--primary),
+      var(--cyan),
+      var(--magenta),
+      var(--primary)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    animation: np-spin 4s linear infinite;
+  }
+
+  /* Faint level bars along the bottom edge of the now-playing card. */
+  .viz-bar {
+    transform-origin: bottom;
+    animation: eq-bounce 1s ease-in-out infinite;
+  }
+}
+
+@property --np-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes np-spin {
+  to {
+    --np-angle: 360deg;
+  }
 }
 
 @keyframes glitch-a {
