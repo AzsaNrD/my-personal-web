@@ -38,7 +38,7 @@ export function Games() {
                 </p>
                 <div className="text-muted-foreground mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs">
                   {g.identityLabel ? (
-                    <span className="text-muted-foreground/70 shrink-0 font-mono tracking-wider uppercase">
+                    <span className="text-muted-foreground shrink-0 font-mono tracking-wider uppercase">
                       {g.identityLabel}
                     </span>
                   ) : null}

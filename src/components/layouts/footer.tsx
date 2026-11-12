@@ -38,7 +38,7 @@ export function Footer() {
             </a>
           </p>
           <p
-            className="text-muted-foreground/60 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
+            className="text-muted-foreground inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
             aria-hidden
           >
             <span className="bg-primary ping-dot relative size-1.5 rounded-full" />

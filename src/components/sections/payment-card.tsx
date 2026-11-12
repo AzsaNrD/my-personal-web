@@ -31,7 +31,6 @@ export function PaymentCard({ p }: { p: Payment }) {
       <button
         type="button"
         onClick={handleCopy}
-        aria-label={`Copy ${p.identityLabel ?? 'number'} for ${p.name}`}
         className={cn(
           'hud-panel group flex w-full cursor-pointer items-center gap-3 p-3 text-left outline-none',
           'focus-visible:border-primary',
@@ -40,10 +39,11 @@ export function PaymentCard({ p }: { p: Payment }) {
       >
         <PaymentIcon payment={p} />
         <span className="block min-w-0 flex-1">
+          <span className="sr-only">Copy </span>
           <span className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
             <span className="text-foreground truncate text-sm font-medium">{p.name}</span>
             {p.fullName ? (
-              <span className="text-muted-foreground/70 truncate text-xs">{p.fullName}</span>
+              <span className="text-muted-foreground truncate text-xs">{p.fullName}</span>
             ) : null}
           </span>
           {p.accountName ? (
@@ -53,16 +53,14 @@ export function PaymentCard({ p }: { p: Payment }) {
           ) : null}
           <span className="text-muted-foreground mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs">
             {p.identityLabel ? (
-              <span className="text-muted-foreground/70 shrink-0 font-mono tracking-wider uppercase">
+              <span className="text-muted-foreground shrink-0 font-mono tracking-wider uppercase">
                 {p.identityLabel}
               </span>
             ) : null}
             <span className="text-foreground min-w-0 truncate font-mono">{p.identity}</span>
           </span>
           {p.note ? (
-            <span className="text-muted-foreground/70 mt-1 block text-xs leading-snug">
-              {p.note}
-            </span>
+            <span className="text-muted-foreground mt-1 block text-xs leading-snug">{p.note}</span>
           ) : null}
         </span>
 
