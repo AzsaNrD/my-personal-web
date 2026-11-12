@@ -15,7 +15,6 @@ export type Payment = {
 };
 
 const ACCOUNT_NAME = 'Azsa Nurwahyudi';
-const EWALLET_NUMBER = '085155001570';
 
 export const payments: Payment[] = [
   {
@@ -55,33 +54,6 @@ export const payments: Payment[] = [
     identityLabel: 'Rek',
     accountName: ACCOUNT_NAME,
     iconSrc: '/icons/payments/Jago.svg',
-  },
-  {
-    slug: 'gopay',
-    name: 'GoPay',
-    category: 'ewallet',
-    identity: EWALLET_NUMBER,
-    identityLabel: 'No HP',
-    accountName: ACCOUNT_NAME,
-    iconSrc: '/icons/payments/Gopay.svg',
-  },
-  {
-    slug: 'dana',
-    name: 'DANA',
-    category: 'ewallet',
-    identity: EWALLET_NUMBER,
-    identityLabel: 'No HP',
-    accountName: ACCOUNT_NAME,
-    iconSrc: '/icons/payments/DANA.svg',
-  },
-  {
-    slug: 'shopeepay',
-    name: 'ShopeePay',
-    category: 'ewallet',
-    identity: EWALLET_NUMBER,
-    identityLabel: 'No HP',
-    accountName: ACCOUNT_NAME,
-    iconSrc: '/icons/payments/ShopeePay.svg',
   },
   {
     slug: 'paypal',
