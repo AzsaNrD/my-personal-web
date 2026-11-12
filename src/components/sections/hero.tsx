@@ -42,7 +42,7 @@ export function Hero() {
     <section className="relative pt-10 pb-6 md:pt-16" aria-label="Introduction">
       <div
         aria-hidden
-        className="grid-bg pointer-events-none absolute top-0 left-1/2 -z-10 h-[34rem] w-screen -translate-x-1/2"
+        className="grid-bg pointer-events-none absolute -top-4 left-1/2 -z-10 h-[35rem] w-screen -translate-x-1/2"
       />
 
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 [&>*]:min-w-0">
@@ -86,8 +86,8 @@ export function Hero() {
             </Button>
             <Button
               size="default"
-              variant="outline"
-              className="chamfer-sm hover:border-primary hover:text-primary h-11 gap-2 rounded-none px-5 text-sm"
+              variant="ghost"
+              className="chamfer-outline hover:text-primary h-11 gap-2 rounded-none px-5 text-sm hover:bg-transparent dark:hover:bg-transparent"
               nativeButton={false}
               render={<Link href="#contact" />}
             >
@@ -101,7 +101,7 @@ export function Hero() {
 
         <div className="animate-[rise-in_0.8s_0.15s_ease-out_both]">
           <Tilt max={4}>
-            <div className="hud-panel hud-corners scan-sweep cursor-default overflow-hidden">
+            <div className="hud-panel hud-corners cursor-default overflow-hidden">
               <div className="border-border flex items-center gap-2 border-b px-4 py-2.5">
                 <span className="size-2.5 rounded-full bg-[var(--magenta)]/80" aria-hidden />
                 <span className="size-2.5 rounded-full bg-[var(--cyan)]/80" aria-hidden />

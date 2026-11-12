@@ -98,7 +98,6 @@
   --grid-line: rgba(4, 120, 87, 0.07);
   --hud-corner: rgba(4, 120, 87, 0.55);
   --glow-strong: transparent;
-  --scan-bar: transparent;
 }
 
 .dark {
@@ -141,7 +140,6 @@
   --grid-line: rgba(52, 211, 153, 0.07);
   --hud-corner: rgba(52, 211, 153, 0.7);
   --glow-strong: rgba(52, 211, 153, 0.55);
-  --scan-bar: rgba(52, 211, 153, 0.09);
 }
 
 @layer base {
@@ -382,6 +380,47 @@
     clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   }
 
+  /*
+   * Outlined chamfer: a plain CSS border is cut away along the diagonal edges by clip-path.
+   * Instead, ::before paints the border colour and ::after paints the fill 1px inside it.
+   * The inner cut is 8px - (sqrt(2) - 1) so the diagonal stroke is also 1px thick.
+   */
+  .chamfer-outline {
+    position: relative;
+    isolation: isolate;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .chamfer-outline::before,
+  .chamfer-outline::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    transition: background-color 200ms ease;
+  }
+  .chamfer-outline::before {
+    inset: 0;
+    background-color: var(--border);
+  }
+  .chamfer-outline::after {
+    inset: 1px;
+    background-color: var(--background);
+    clip-path: polygon(
+      0 0,
+      calc(100% - 7.414px) 0,
+      100% 7.414px,
+      100% 100%,
+      7.414px 100%,
+      0 calc(100% - 7.414px)
+    );
+  }
+  .chamfer-outline:hover::before {
+    background-color: var(--primary);
+  }
+  .chamfer-outline:hover::after {
+    background-color: var(--muted);
+  }
+
   /* Glass panel with a neon hover edge. Add `.hud-corners` for the two bracket corners; keep those for featured cards only. */
   .hud-panel {
     position: relative;
@@ -453,7 +492,7 @@
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 44px 44px;
-    mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+    mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 30%, transparent 95%);
   }
 
   /* Glitch headline: two offset colour layers driven by data-text. */
@@ -502,19 +541,6 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-  }
-
-  /* Scan sweep: a bright bar that travels down its container. */
-  .scan-sweep::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 38%;
-    pointer-events: none;
-    background: linear-gradient(to bottom, transparent, var(--scan-bar), transparent);
-    animation: scan-sweep 5s linear infinite;
   }
 
   /* Skill / tech ticker */
@@ -641,14 +667,6 @@
   }
   100% {
     transform: translate(0);
-  }
-}
-@keyframes scan-sweep {
-  from {
-    transform: translateY(-120%);
-  }
-  to {
-    transform: translateY(300%);
   }
 }
 @keyframes marquee {

@@ -47,7 +47,7 @@ export function PageHeader({
     <header className="border-border relative mb-10 animate-[rise-in_0.6s_ease-out_both] border-b pb-8">
       <div
         aria-hidden
-        className="grid-bg pointer-events-none absolute top-[-3rem] left-1/2 -z-10 h-64 w-screen -translate-x-1/2"
+        className="grid-bg pointer-events-none absolute top-[-4rem] left-1/2 -z-10 h-[17rem] w-screen -translate-x-1/2"
       />
       <Eyebrow jp={jp}>{eyebrow}</Eyebrow>
       <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
