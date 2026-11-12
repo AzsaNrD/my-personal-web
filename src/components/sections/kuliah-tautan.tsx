@@ -16,7 +16,7 @@ function ResourceCard({ r }: { r: ResourceLink }) {
         href={r.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="group border-border hover:border-primary/40 hover:bg-secondary/40 flex items-center gap-3 rounded-xl border p-4 transition-colors"
+        className="hud-panel group flex items-center gap-3 p-4 outline-none"
       >
         <span className="bg-muted text-muted-foreground inline-flex size-9 shrink-0 items-center justify-center rounded-md">
           <Icon size={16} aria-hidden />
@@ -39,7 +39,12 @@ export function KuliahTautan() {
   if (!resources.length) return null;
   return (
     <section>
-      <p className="text-muted-foreground font-mono text-xs tracking-[0.18em] uppercase">Tautan</p>
+      <p className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+        <span className="text-primary/60" aria-hidden>
+          //{' '}
+        </span>
+        Tautan
+      </p>
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {resources.map((r) => (
           <ResourceCard key={r.slug} r={r} />

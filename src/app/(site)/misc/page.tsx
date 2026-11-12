@@ -18,7 +18,7 @@ export default function MiscPage() {
         description="A small corner for the stuff I'm into outside of work. Music, games, and more coming as I get around to it."
       />
 
-      <div className="[&>*:not(:first-child)]:border-border [&>*:not(:first-child)]:mt-12 [&>*:not(:first-child)]:border-t [&>*:not(:first-child)]:pt-12">
+      <div className="grid gap-14 lg:grid-cols-2 lg:gap-10">
         <Music />
         <Games />
       </div>

@@ -52,7 +52,7 @@ export default async function BlogIndexPage() {
               <Tilt max={3}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="glass glass-hover group block rounded-xl p-5"
+                  className="hud-panel group block p-5 outline-none"
                 >
                   <div className="text-muted-foreground flex flex-wrap items-center gap-2 font-mono text-[11px]">
                     <time>{formatDate(post.date)}</time>
@@ -84,7 +84,7 @@ export default async function BlogIndexPage() {
                       {post.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="bg-muted text-muted-foreground rounded-md px-2 py-0.5 font-mono text-[11px]"
+                          className="border-primary/25 text-primary/90 bg-primary/5 border px-2 py-0.5 font-mono text-[11px]"
                         >
                           #{tag}
                         </li>

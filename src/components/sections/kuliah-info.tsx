@@ -15,8 +15,13 @@ export function KuliahInfo() {
 
   return (
     <section>
-      <p className="text-muted-foreground font-mono text-xs tracking-[0.18em] uppercase">Profil</p>
-      <dl className="border-border bg-card mt-3 grid grid-cols-2 gap-x-4 gap-y-4 rounded-xl border p-4 sm:grid-cols-3">
+      <p className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+        <span className="text-primary/60" aria-hidden>
+          //{' '}
+        </span>
+        Profil
+      </p>
+      <dl className="hud-panel mt-3 grid grid-cols-2 gap-x-4 gap-y-4 p-4 sm:grid-cols-3">
         {items.map((it) => (
           <div key={it.label} className="min-w-0">
             <dt className="text-muted-foreground/70 font-mono text-[10px] tracking-wider uppercase">

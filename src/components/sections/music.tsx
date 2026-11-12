@@ -27,7 +27,7 @@ function TrackRow({
         href={url}
         target="_blank"
         rel="noreferrer noopener"
-        className="border-border hover:border-primary/40 bg-card hover:bg-secondary/40 group flex items-center gap-3 rounded-xl border p-3 transition-colors"
+        className="hud-panel group flex items-center gap-3 p-3 outline-none"
       >
         {rank ? (
           <span className="text-muted-foreground w-5 shrink-0 text-right font-mono text-xs">
@@ -149,6 +149,9 @@ export function Music() {
 
       <div>
         <h3 className="text-muted-foreground mb-3 font-mono text-[11px] tracking-wider uppercase">
+          <span className="text-primary/60" aria-hidden>
+            //{' '}
+          </span>
           Now / last played
         </h3>
         <Suspense
@@ -162,6 +165,9 @@ export function Music() {
 
       <div>
         <h3 className="text-muted-foreground mb-3 font-mono text-[11px] tracking-wider uppercase">
+          <span className="text-primary/60" aria-hidden>
+            //{' '}
+          </span>
           Top tracks · last 7 days
         </h3>
         <Suspense fallback={<Skeleton rows={5} />}>
@@ -171,6 +177,9 @@ export function Music() {
 
       <div>
         <h3 className="text-muted-foreground mb-3 font-mono text-[11px] tracking-wider uppercase">
+          <span className="text-primary/60" aria-hidden>
+            //{' '}
+          </span>
           Recent plays
         </h3>
         <Suspense fallback={<Skeleton rows={4} />}>

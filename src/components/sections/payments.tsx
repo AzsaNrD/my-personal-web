@@ -14,7 +14,7 @@ const CATEGORY_ORDER: PaymentCategory[] = ['bank', 'ewallet', 'international'];
 function PaymentCard({ p }: { p: Payment }) {
   return (
     <li>
-      <div className="border-border flex items-center gap-3 rounded-xl border p-3">
+      <div className="hud-panel flex items-center gap-3 p-3">
         <PaymentIcon payment={p} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
@@ -53,10 +53,13 @@ export function Payments() {
         const meta = CATEGORY_META[category];
         return (
           <section key={category} className="space-y-3">
-            <p className="text-muted-foreground font-mono text-xs tracking-[0.2em] uppercase">
+            <p className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
+              <span className="text-primary/60" aria-hidden>
+                //{' '}
+              </span>
               {meta.label}
             </p>
-            <ul className="space-y-2">
+            <ul className="grid gap-3 sm:grid-cols-2">
               {items.map((p) => (
                 <PaymentCard key={p.slug} p={p} />
               ))}

@@ -23,7 +23,7 @@ export function Games() {
               href={g.url}
               target="_blank"
               rel="noreferrer noopener"
-              className="border-border hover:border-primary/40 bg-card hover:bg-secondary/40 group flex items-center gap-3 rounded-xl border p-3 transition-colors"
+              className="hud-panel group flex items-center gap-3 p-3 outline-none"
             >
               <LoadingImage
                 src={g.icon}

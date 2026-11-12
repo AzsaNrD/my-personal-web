@@ -6,7 +6,10 @@ export function KuliahMateri() {
 
   return (
     <section>
-      <p className="text-muted-foreground font-mono text-xs tracking-[0.18em] uppercase">
+      <p className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+        <span className="text-primary/60" aria-hidden>
+          //{' '}
+        </span>
         Arsip Materi
       </p>
       {items.length === 0 ? (
@@ -21,7 +24,7 @@ export function KuliahMateri() {
                 href={m.driveUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="group border-border hover:border-primary/40 hover:bg-secondary/40 flex items-center gap-3 rounded-xl border p-4 transition-colors"
+                className="hud-panel group flex items-center gap-3 p-4 outline-none"
               >
                 <span className="bg-muted text-muted-foreground inline-flex size-9 shrink-0 items-center justify-center rounded-md">
                   <FolderOpen size={16} aria-hidden />

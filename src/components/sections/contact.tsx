@@ -50,57 +50,72 @@ const channels: Channel[] = [
 
 export function Contact() {
   return (
-    <section id="contact" className="py-10" aria-labelledby="contact-heading">
-      <FadeIn>
-        <SectionHeading
-          eyebrow="Contact"
-          jp="連絡"
-          title="Let's talk"
-          titleId="contact-heading"
-          description="Got a project in mind, looking to collaborate, or just want to say hi? Use whichever channel works best for you."
-        />
-      </FadeIn>
+    <section id="contact" className="scroll-mt-20 py-14" aria-labelledby="contact-heading">
+      <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <FadeIn className="lg:sticky lg:top-24 lg:self-start">
+          <SectionHeading
+            eyebrow="Contact"
+            jp="連絡"
+            title="Let's talk"
+            titleId="contact-heading"
+            description="Got a project in mind, looking to collaborate, or just want to say hi? Use whichever channel works best for you."
+          />
+          <a
+            href={`mailto:${siteConfig.email}`}
+            className="chamfer-sm bg-primary text-primary-foreground mt-8 inline-flex h-11 items-center gap-2 px-5 text-sm font-semibold shadow-[0_0_26px_-6px_var(--glow-strong)] transition-shadow hover:shadow-[0_0_34px_-2px_var(--glow-strong)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
+          >
+            <Mail size={15} aria-hidden />
+            Say hello
+            <ArrowUpRight size={15} aria-hidden />
+          </a>
+        </FadeIn>
 
-      <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-        {channels.map(({ label, value, href, icon: Icon, external }, idx) => {
-          const className = 'glass glass-hover group flex items-center gap-3 rounded-xl p-4';
-          const inner = (
-            <>
-              <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
-                <Icon size={18} />
-              </span>
-              <span className="flex min-w-0 flex-col">
-                <span className="text-muted-foreground text-[11px] font-medium tracking-wider uppercase">
-                  {label}
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {channels.map(({ label, value, href, icon: Icon, external }, idx) => {
+            const className = 'hud-panel group flex items-center gap-3 p-4 outline-none';
+            const inner = (
+              <>
+                <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground inline-flex h-10 w-10 shrink-0 items-center justify-center transition-colors">
+                  <Icon size={18} />
                 </span>
-                <span className="text-foreground truncate text-sm font-medium">{value}</span>
-              </span>
-              <ArrowUpRight
-                size={16}
-                aria-hidden
-                className="text-muted-foreground/40 group-hover:text-primary ml-auto shrink-0 transition-colors"
-              />
-            </>
-          );
-          return (
-            <FadeIn key={label} delay={idx * 0.05}>
-              <li>
-                <Tilt>
-                  {external ? (
-                    <a href={href} target="_blank" rel="noreferrer noopener" className={className}>
-                      {inner}
-                    </a>
-                  ) : (
-                    <Link href={href} className={className}>
-                      {inner}
-                    </Link>
-                  )}
-                </Tilt>
+                <span className="flex min-w-0 flex-col">
+                  <span className="text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase">
+                    {label}
+                  </span>
+                  <span className="text-foreground truncate text-sm font-medium">{value}</span>
+                </span>
+                <ArrowUpRight
+                  size={16}
+                  aria-hidden
+                  className="text-muted-foreground/40 group-hover:text-primary ml-auto shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </>
+            );
+            return (
+              <li key={label}>
+                <FadeIn delay={idx * 0.05}>
+                  <Tilt max={3}>
+                    {external ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className={className}
+                      >
+                        {inner}
+                      </a>
+                    ) : (
+                      <Link href={href} className={className}>
+                        {inner}
+                      </Link>
+                    )}
+                  </Tilt>
+                </FadeIn>
               </li>
-            </FadeIn>
-          );
-        })}
-      </ul>
+            );
+          })}
+        </ul>
+      </div>
     </section>
   );
 }

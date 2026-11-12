@@ -28,7 +28,7 @@ export default async function GuestbookPage() {
         description="Want to drop a message or say hi? No account needed."
       />
 
-      <div className="border-border bg-card rounded-xl border p-5">
+      <div className="hud-panel p-5">
         {user ? (
           <div className="space-y-5">
             <div className="flex items-center justify-between gap-3">

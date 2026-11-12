@@ -36,7 +36,7 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
         href={track.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="glass glass-hover group flex items-center gap-4 rounded-xl p-4"
+        className="hud-panel hud-corners group flex items-center gap-4 p-4 outline-none"
       >
         {track.image ? (
           <LoadingImage

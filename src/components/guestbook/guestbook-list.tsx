@@ -32,7 +32,7 @@ function EntryItem({
           ? 'border-border bg-card/60 flex items-start gap-3 rounded-xl border border-dashed p-4'
           : isOwner
             ? 'border-primary/40 from-primary/5 relative flex items-start gap-3 overflow-hidden rounded-lg border bg-gradient-to-br to-transparent p-4'
-            : 'border-border bg-card flex items-start gap-3 rounded-xl border p-4'
+            : 'hud-panel flex items-start gap-3 p-4'
       }
     >
       {isOwner && !isPending && (

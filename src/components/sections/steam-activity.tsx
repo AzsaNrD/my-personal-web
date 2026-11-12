@@ -88,7 +88,7 @@ function RecentGamesList({ games }: { games: SteamGame[] }) {
             href={steamStoreUrl(g.appId)}
             target="_blank"
             rel="noreferrer noopener"
-            className="border-border hover:border-primary/40 hover:bg-secondary/40 group flex items-center gap-3 rounded-xl border p-3 transition-colors"
+            className="hud-panel group flex items-center gap-3 p-3 outline-none"
           >
             <SteamGameImage
               banner={g.bannerUrl}
@@ -129,7 +129,7 @@ function HeroCard({
   const playtime2W = totalPlaytime2W(recent);
   return (
     <Tilt max={2}>
-      <div className="glass from-primary/5 relative overflow-hidden rounded-xl bg-gradient-to-br to-transparent">
+      <div className="hud-panel from-primary/5 relative bg-gradient-to-br to-transparent">
         <a
           href={player.profileUrl}
           target="_blank"

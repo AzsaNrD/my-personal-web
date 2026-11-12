@@ -8,6 +8,8 @@ import { Navbar } from '@/components/layouts/navbar';
 import { Footer } from '@/components/layouts/footer';
 import { ConsoleGreeting } from '@/components/console-greeting';
 import { PageTransition } from '@/components/page-transition';
+import { SiteContainer } from '@/components/layouts/site-container';
+import { CursorGlow } from '@/components/ui/cursor-glow';
 import { StarBackdrop } from '@/components/three/star-backdrop';
 import { inter, displayFont, jetbrainsMono } from '@/styles/fonts';
 import { siteConfig } from '@/lib/site-config';
@@ -69,15 +71,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <ConsoleGreeting />
           <StarBackdrop />
           <div className="scanlines" aria-hidden />
+          <CursorGlow />
           {/* Navbar is outside the container so its bar spans the full viewport. */}
-          <div className="flex min-h-dvh flex-col">
+          <div id="top" className="flex min-h-dvh flex-col overflow-x-clip">
             <Navbar />
-            <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-5 sm:px-6">
+            <SiteContainer>
               <main className="flex-1">
                 <PageTransition>{children}</PageTransition>
               </main>
               <Footer />
-            </div>
+            </SiteContainer>
           </div>
         </ThemeProvider>
         <Analytics />

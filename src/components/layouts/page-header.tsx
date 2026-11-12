@@ -10,7 +10,9 @@ function Eyebrow({
 }) {
   return (
     <p className="flex items-center gap-2 font-mono text-[11px] font-medium tracking-[0.22em] uppercase">
-      <span className="bg-primary h-3 w-0.5 shrink-0" aria-hidden />
+      <span className="text-primary/60" aria-hidden>
+        //
+      </span>
       {Icon ? <Icon size={12} className="text-primary shrink-0" /> : null}
       <span className="text-primary">{children}</span>
       {jp ? (
@@ -42,11 +44,21 @@ export function PageHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <header className="border-border mb-10 border-b pb-8">
+    <header className="border-border relative mb-10 animate-[rise-in_0.6s_ease-out_both] border-b pb-8">
+      <div
+        aria-hidden
+        className="grid-bg pointer-events-none absolute top-[-3rem] left-1/2 -z-10 h-64 w-screen -translate-x-1/2"
+      />
       <Eyebrow jp={jp}>{eyebrow}</Eyebrow>
       <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">{title}</h1>
+          <h1 className="font-display text-foreground text-4xl font-bold tracking-tight md:text-5xl">
+            {title}
+          </h1>
+          <span
+            aria-hidden
+            className="mt-4 block h-0.5 w-16 bg-gradient-to-r from-[var(--primary)] via-[var(--cyan)] to-[var(--magenta)] shadow-[0_0_10px_var(--glow-strong)]"
+          />
           {description ? (
             <p className="text-muted-foreground mt-3 max-w-prose text-sm leading-relaxed">
               {description}
@@ -86,8 +98,14 @@ export function SectionHeading({
       >
         {title}
       </h2>
+      <span
+        aria-hidden
+        className="mt-3 block h-0.5 w-12 bg-gradient-to-r from-[var(--primary)] to-[var(--cyan)] shadow-[0_0_10px_var(--glow-strong)]"
+      />
       {description ? (
-        <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{description}</p>
+        <p className="text-muted-foreground mt-3 max-w-prose text-sm leading-relaxed">
+          {description}
+        </p>
       ) : null}
     </div>
   );

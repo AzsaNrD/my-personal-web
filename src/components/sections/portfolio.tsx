@@ -1,13 +1,15 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { FadeIn } from '@/components/ui/fade-in';
 import { SectionHeading } from '@/components/layouts/page-header';
 import { ProjectPreview } from '@/components/ui/project-preview';
+import { Tilt } from '@/components/ui/tilt';
 import { projects } from '@/lib/data/projects';
+import { cn } from '@/lib/utils';
 
 export function Portfolio() {
   return (
-    <section id="portfolio" className="py-10" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="scroll-mt-20 py-14" aria-labelledby="portfolio-heading">
       <FadeIn>
         <SectionHeading
           eyebrow="Portfolio"
@@ -18,55 +20,67 @@ export function Portfolio() {
         />
       </FadeIn>
 
-      <ol className="border-border mt-8 border-t">
-        {projects.map((project, idx) => (
-          <li key={project.slug} className="border-border border-b">
-            <FadeIn delay={idx * 0.05}>
-              <Link
-                href={`/portfolio/${project.slug}`}
-                className="group hover:bg-secondary/30 flex items-start gap-3 py-5 transition-colors sm:gap-5 sm:py-6"
-              >
-                <span
-                  aria-hidden
-                  className="text-muted-foreground/40 group-hover:text-primary w-6 shrink-0 pt-1 font-mono text-sm tabular-nums transition-colors sm:w-7"
-                >
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-
-                <div className="hidden shrink-0 sm:block">
-                  <ProjectPreview project={project} size="sm" />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-foreground group-hover:text-primary text-base font-semibold tracking-tight transition-colors sm:text-lg">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <ul className="mt-3 flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="bg-muted text-muted-foreground rounded-md px-2 py-0.5 font-mono text-[11px]"
+      <ol className="mt-10 grid gap-5 md:grid-cols-2">
+        {projects.map((project, idx) => {
+          const featured = idx === 0;
+          return (
+            <li key={project.slug} className={cn(featured && 'md:col-span-2')}>
+              <FadeIn delay={(idx % 2) * 0.08} className="h-full">
+                <Tilt max={2.5} className="h-full">
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    className={cn(
+                      'hud-panel hud-corners group flex h-full flex-col gap-5 p-4 outline-none sm:p-5',
+                      featured && 'lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-8',
+                    )}
+                  >
+                    <div className="relative overflow-hidden">
+                      <ProjectPreview
+                        project={project}
+                        size="lg"
+                        className="transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                      <span
+                        aria-hidden
+                        className="bg-background/80 text-primary absolute top-2 left-2 px-2 py-0.5 font-mono text-[11px] tracking-widest backdrop-blur"
                       >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                    </div>
 
-                <ArrowRight
-                  size={16}
-                  aria-hidden
-                  className="text-muted-foreground/40 group-hover:text-primary mt-1.5 shrink-0 transition-colors"
-                />
-              </Link>
-            </FadeIn>
-          </li>
-        ))}
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className="text-foreground group-hover:text-primary font-display text-xl font-semibold tracking-tight transition-colors sm:text-2xl">
+                          {project.title}
+                        </h3>
+                        <ArrowUpRight
+                          size={20}
+                          aria-hidden
+                          className="text-muted-foreground/50 group-hover:text-primary mt-1 shrink-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </div>
+
+                      <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      <ul className="mt-4 flex flex-wrap gap-1.5">
+                        {project.tags.map((tag) => (
+                          <li
+                            key={tag}
+                            className="border-primary/25 text-primary/90 bg-primary/5 border px-2 py-0.5 font-mono text-[11px]"
+                          >
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Link>
+                </Tilt>
+              </FadeIn>
+            </li>
+          );
+        })}
       </ol>
     </section>
   );
