@@ -17,10 +17,16 @@ export function ProjectPreview({
   project,
   size = 'lg',
   className,
+  priority = false,
+  sizes,
 }: {
   project: Project;
   size?: 'sm' | 'lg';
   className?: string;
+  /** Set for the image that is the page's largest paint, so it is preloaded instead of lazy-loaded. */
+  priority?: boolean;
+  /** Rendered width hint for the srcset; defaults to the card layout on the home page. */
+  sizes?: string;
 }) {
   if (project.image) {
     return (
@@ -29,6 +35,9 @@ export function ProjectPreview({
         alt={`${project.title} screenshot`}
         width={size === 'lg' ? 1280 : 96}
         height={size === 'lg' ? 800 : 64}
+        priority={priority}
+        fetchPriority={priority ? 'high' : undefined}
+        sizes={sizes ?? (size === 'lg' ? '(min-width: 768px) 540px, calc(100vw - 3rem)' : '96px')}
         className={cn(
           'border-border border object-cover object-top',
           size === 'lg' ? 'aspect-video w-full rounded-xl' : 'h-16 w-24 rounded-md',

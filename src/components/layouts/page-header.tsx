@@ -44,7 +44,7 @@ export function PageHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <header className="border-border relative mb-10 animate-[rise-in_0.6s_ease-out_both] border-b pb-8">
+    <header className="border-border relative mb-10 animate-[rise-up_0.6s_ease-out_both] border-b pb-8">
       <div
         aria-hidden
         className="grid-bg pointer-events-none absolute top-[-4rem] left-1/2 -z-10 h-[17rem] w-screen -translate-x-1/2"

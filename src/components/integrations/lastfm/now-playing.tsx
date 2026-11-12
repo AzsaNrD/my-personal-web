@@ -5,6 +5,7 @@ import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
 import { cn, formatRelative } from '@/lib/utils';
+import { lastfmThumb } from '@/lib/lastfm-image';
 import { Equalizer } from '@/components/ui/equalizer';
 import { LoadingImage } from '@/components/ui/loading-image';
 
@@ -26,7 +27,7 @@ export function NowPlaying() {
   return (
     <div
       className={cn(
-        'border-border bg-secondary/40 text-muted-foreground mt-7 inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 border px-3 py-1.5 font-mono text-xs transition-colors sm:flex-nowrap',
+        'border-border bg-secondary/40 text-muted-foreground mt-7 inline-flex min-h-14 max-w-full flex-wrap items-center gap-x-2 gap-y-1 border px-3 py-1.5 font-mono text-xs transition-colors sm:min-h-10 sm:flex-nowrap',
         track?.nowPlaying &&
           'np-border bg-primary/5 border-transparent py-2 shadow-[0_0_24px_-8px_var(--glow-strong)]',
         isStale && 'opacity-70',
@@ -82,7 +83,7 @@ function NowPlayingContent({
         >
           {track.image ? (
             <LoadingImage
-              src={track.image}
+              src={lastfmThumb(track.image, '64s')}
               alt={`${track.name} cover`}
               width={track.nowPlaying ? 24 : 20}
               height={track.nowPlaying ? 24 : 20}

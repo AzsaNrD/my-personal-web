@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { Disc3, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { lastfmThumb } from '@/lib/lastfm-image';
 import { Visualizer } from '@/components/ui/visualizer';
 import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetchState } from '@/lib/hooks/use-polled-fetch';
@@ -45,19 +45,8 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
       >
         {track.nowPlaying ? (
           <>
-            {/* Blurred cover as ambient light; its own clipping wrapper keeps the corner brackets visible. */}
+            {/* Soft theme-coloured wash and the level-bar strip; clipped here so the corner brackets stay visible. */}
             <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-              {track.image ? (
-                <Image
-                  src={track.image}
-                  alt=""
-                  width={80}
-                  height={80}
-                  unoptimized
-                  // The blurred cover muddies a light background, so it only shows in dark mode.
-                  className="absolute inset-0 hidden size-full scale-150 object-cover opacity-30 blur-2xl saturate-150 dark:block"
-                />
-              ) : null}
               <span className="from-primary/10 absolute inset-0 bg-gradient-to-r via-[var(--cyan)]/5 to-transparent" />
               <Visualizer className="absolute inset-x-4 bottom-0 h-6 opacity-70 dark:opacity-50" />
             </span>
@@ -71,7 +60,7 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
         >
           {track.image ? (
             <LoadingImage
-              src={track.image}
+              src={lastfmThumb(track.image, '174s')}
               alt={`${track.name} cover`}
               width={80}
               height={80}

@@ -36,7 +36,12 @@ export default async function ProjectPage({ params }: { params: Promise<RoutePar
         Back to portfolio
       </Link>
 
-      <ProjectPreview project={project} size="lg" />
+      <ProjectPreview
+        project={project}
+        size="lg"
+        priority
+        sizes="(min-width: 768px) 720px, calc(100vw - 2.5rem)"
+      />
 
       <header className="mt-8">
         <h1 className="text-foreground text-3xl font-bold tracking-tight md:text-4xl">

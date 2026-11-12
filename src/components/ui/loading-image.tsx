@@ -5,7 +5,9 @@ import Image, { type ImageProps } from 'next/image';
 import { cn } from '@/lib/utils';
 
 export function LoadingImage({ className, onLoad, ...props }: ImageProps) {
-  const [loaded, setLoaded] = useState(false);
+  // A priority image is the page's largest paint: show it as soon as the HTML arrives instead of
+  // keeping it at opacity 0 until JavaScript has hydrated and flipped the flag.
+  const [loaded, setLoaded] = useState(Boolean(props.priority));
   const imgRef = useRef<HTMLImageElement>(null);
 
   // A cached image can finish before onLoad attaches, leaving the skeleton stuck on.

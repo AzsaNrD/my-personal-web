@@ -434,9 +434,11 @@
       box-shadow 200ms ease,
       background-color 200ms ease;
   }
-  @supports (backdrop-filter: blur(1px)) {
-    .hud-panel {
-      backdrop-filter: blur(12px) saturate(140%);
+  @media (hover: hover) {
+    @supports (backdrop-filter: blur(1px)) {
+      .hud-panel {
+        backdrop-filter: blur(12px) saturate(140%);
+      }
     }
   }
   .hud-corners::before,
@@ -567,6 +569,19 @@
     animation: ping-dot 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
+  /* Scroll reveal, toggled by FadeIn once the element enters the viewport. */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 400ms ease-out,
+      transform 400ms ease-out;
+  }
+  .fade-in-shown {
+    opacity: 1;
+    transform: none;
+  }
+
   .eq-bar {
     transform-origin: bottom;
     transform: scaleY(var(--eq-h, 0.6));
@@ -682,6 +697,15 @@
   100% {
     transform: scale(2.6);
     opacity: 0;
+  }
+}
+/* Transform-only entrance: text stays visible from the first paint, so it can count as LCP. */
+@keyframes rise-up {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
   }
 }
 @keyframes rise-in {

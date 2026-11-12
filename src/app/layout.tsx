@@ -83,8 +83,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </SiteContainer>
           </div>
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        {process.env.VERCEL ? (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        ) : null}
       </body>
     </html>
   );

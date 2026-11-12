@@ -6,6 +6,7 @@ import { RecentTracksList } from '@/components/integrations/lastfm/recent-tracks
 import { LoadingImage } from '@/components/ui/loading-image';
 import { SectionHeading } from '@/components/layouts/page-header';
 import { cn } from '@/lib/utils';
+import { lastfmThumb } from '@/lib/lastfm-image';
 
 function TrackRow({
   rank,
@@ -79,7 +80,7 @@ function Cover({ image, className }: { image: string | null; className: string }
   if (image) {
     return (
       <LoadingImage
-        src={image}
+        src={lastfmThumb(image, '174s')}
         alt=""
         width={72}
         height={72}

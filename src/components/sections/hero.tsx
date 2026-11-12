@@ -46,7 +46,7 @@ export function Hero() {
       />
 
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 [&>*]:min-w-0">
-        <div className="animate-[rise-in_0.7s_ease-out_both]">
+        <div className="animate-[rise-up_0.7s_ease-out_both]">
           <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase">
             <span className="text-primary/60" aria-hidden>
               //
@@ -63,7 +63,7 @@ export function Hero() {
             <HeroName name={siteConfig.name} />
           </h1>
 
-          <p className="mt-5 font-mono text-sm sm:text-base">
+          <p className="mt-5 min-h-5 font-mono text-sm sm:min-h-6 sm:text-base">
             <span className="text-primary/70" aria-hidden>
               &gt;{' '}
             </span>

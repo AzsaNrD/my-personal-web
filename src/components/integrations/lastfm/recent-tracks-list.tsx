@@ -6,6 +6,7 @@ import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetch } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
 import { formatRelative } from '@/lib/utils';
+import { lastfmThumb } from '@/lib/lastfm-image';
 import { LoadingImage } from '@/components/ui/loading-image';
 
 type SerializedTrack = Omit<LastfmTrack, 'playedAt'> & { playedAt: string | null };
@@ -55,7 +56,7 @@ export function RecentTracksList({
           >
             {t.image ? (
               <LoadingImage
-                src={t.image}
+                src={lastfmThumb(t.image, '174s')}
                 alt=""
                 width={40}
                 height={40}
@@ -73,7 +74,10 @@ export function RecentTracksList({
               </p>
               <p className="text-muted-foreground truncate text-xs">{t.artist}</p>
             </div>
-            <span className="text-muted-foreground shrink-0 font-mono text-xs">
+            <span
+              suppressHydrationWarning
+              className="text-muted-foreground shrink-0 font-mono text-xs"
+            >
               {t.nowPlaying ? 'now' : t.playedAt ? formatRelative(t.playedAt) : ''}
             </span>
           </a>
