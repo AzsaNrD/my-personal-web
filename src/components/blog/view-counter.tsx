@@ -8,8 +8,11 @@ type Props = {
   trackView?: boolean;
 };
 
+/** Survives client navigations, so going back to the list shows counts instantly. */
+const countCache = new Map<string, number>();
+
 export function ViewCounter({ slug, trackView = false }: Props) {
-  const [count, setCount] = useState<number | null>(null);
+  const [count, setCount] = useState<number | null>(() => countCache.get(slug) ?? null);
 
   useEffect(() => {
     let cancelled = false;
@@ -21,6 +24,7 @@ export function ViewCounter({ slug, trackView = false }: Props) {
       try {
         const res = await fetch(url, { method: shouldTrack ? 'POST' : 'GET' });
         const data = (await res.json()) as { count: number };
+        countCache.set(slug, data.count);
         if (!cancelled) setCount(data.count);
         if (shouldTrack) sessionStorage.setItem(flagKey, '1');
       } catch {
@@ -37,7 +41,14 @@ export function ViewCounter({ slug, trackView = false }: Props) {
   return (
     <span className="text-muted-foreground inline-flex items-center gap-1 font-mono text-xs">
       <Eye size={12} aria-hidden />
-      <span>{count === null ? '–' : count.toLocaleString('id-ID')} views</span>
+      {count === null ? (
+        <span aria-hidden className="bg-muted inline-block h-3 w-6 animate-pulse rounded-sm" />
+      ) : (
+        <span className="animate-[page-fade_0.3s_ease-out_both]">
+          {count.toLocaleString('id-ID')}
+        </span>
+      )}
+      <span>views</span>
     </span>
   );
 }
