@@ -6,8 +6,7 @@ import { SignInButtons, SignOutButton } from '@/components/guestbook/auth-button
 import { GuestbookForm } from '@/components/guestbook/guestbook-form';
 import { GuestbookList } from '@/components/guestbook/guestbook-list';
 import { GithubIcon, DiscordIcon, GoogleIcon } from '@/components/ui/brand-icons';
-import { Skeleton } from '@/components/ui/skeleton';
-import { PageHeader } from '@/components/layouts/page-header';
+import { GuestbookListSkeleton } from '@/components/guestbook/guestbook-skeletons';
 
 export const metadata: Metadata = {
   title: 'Guestbook',
@@ -20,14 +19,7 @@ export default async function GuestbookPage() {
   const user = session?.user;
 
   return (
-    <section className="py-12">
-      <PageHeader
-        eyebrow="Guestbook"
-        jp="ゲストブック"
-        title="Guestbook"
-        description="Want to drop a message or say hi? No account needed."
-      />
-
+    <>
       <div className="hud-panel p-4 sm:p-5">
         {user ? (
           <div className="space-y-5">
@@ -86,23 +78,6 @@ export default async function GuestbookPage() {
           </Suspense>
         </div>
       </div>
-    </section>
-  );
-}
-
-function GuestbookListSkeleton() {
-  return (
-    <ul className="space-y-3">
-      {Array.from({ length: 3 }).map((_, idx) => (
-        <li key={idx} className="border-border flex items-start gap-3 rounded-xl border p-4">
-          <Skeleton className="h-9 w-9 shrink-0 rounded-full" />
-          <div className="min-w-0 flex-1 space-y-2">
-            <Skeleton className="h-3 w-32" />
-            <Skeleton className="h-3 w-full" />
-            <Skeleton className="h-3 w-3/4" />
-          </div>
-        </li>
-      ))}
-    </ul>
+    </>
   );
 }
