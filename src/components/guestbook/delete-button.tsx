@@ -35,7 +35,7 @@ export function DeleteButton({ id, preview }: Props) {
       <Dialog.Trigger
         type="button"
         aria-label="Delete message"
-        className="text-muted-foreground hover:text-destructive inline-flex h-7 w-7 items-center justify-center rounded-md transition-colors disabled:opacity-50"
+        className="text-muted-foreground hover:text-destructive inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors disabled:opacity-50 md:h-7 md:w-7"
       >
         <Trash2 size={13} aria-hidden />
       </Dialog.Trigger>

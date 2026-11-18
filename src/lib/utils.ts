@@ -33,3 +33,14 @@ export function formatRelative(date: Date): string {
   }
   return RTF.format(0, 'second');
 }
+
+const DATE_TIME = new Intl.DateTimeFormat('en-GB', {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+  timeZone: 'Asia/Jakarta',
+});
+
+/** Absolute timestamp for tooltips, always in WIB so server and browser agree. */
+export function formatDateTime(date: Date): string {
+  return `${DATE_TIME.format(date)} WIB`;
+}

@@ -74,9 +74,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <CursorGlow />
           {/* Navbar is outside the container so its bar spans the full viewport. */}
           <div id="top" className="flex min-h-dvh flex-col overflow-x-clip">
+            <a
+              href="#main"
+              className="bg-primary text-primary-foreground sr-only z-[60] px-4 py-2 text-sm font-medium focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+            >
+              Skip to content
+            </a>
             <Navbar />
             <SiteContainer>
-              <main className="flex-1">
+              <main id="main" tabIndex={-1} className="flex-1 outline-none">
                 <PageTransition>{children}</PageTransition>
               </main>
               <Footer />

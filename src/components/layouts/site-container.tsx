@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils';
 /** Home gets the widest canvas, dashboard-style pages a wide one; reading pages keep the narrow column. */
 export function containerWidth(pathname: string) {
   if (pathname === '/') return 'max-w-6xl';
-  if (['/misc', '/pay', '/kuliah'].some((p) => pathname.startsWith(p))) return 'max-w-5xl';
+  if (['/misc', '/pay', '/kuliah', '/guestbook'].some((p) => pathname.startsWith(p)))
+    return 'max-w-5xl';
   return 'max-w-3xl';
 }
 

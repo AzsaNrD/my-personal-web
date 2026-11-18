@@ -1,12 +1,14 @@
-import { UserRound } from 'lucide-react';
+import { MessageSquareText } from 'lucide-react';
 import { GithubIcon, DiscordIcon, GoogleIcon } from '@/components/ui/brand-icons';
 import { getDeletedEntries, getGuestbookEntries, getPendingEntries } from '@/lib/db/guestbook';
 import type { Guestbook } from '@/lib/db/schema';
 import { auth } from '@/lib/auth';
 import { getGuestKey } from '@/lib/guestbook-guest';
 import { isOwnerKey, userKey } from '@/lib/is-owner';
-import { formatRelative } from '@/lib/utils';
+import { formatDateTime, formatRelative } from '@/lib/utils';
 import { LoadingImage } from '@/components/ui/loading-image';
+import { CoverFallback } from '@/components/ui/cover-fallback';
+import { MessagesHeading } from '@/components/guestbook/messages-heading';
 import { ApproveButton } from './approve-button';
 import { DeleteButton } from './delete-button';
 
@@ -14,10 +16,12 @@ function EntryItem({
   entry,
   isOwnerSession,
   currentKey,
+  index,
 }: {
   entry: Guestbook;
   isOwnerSession: boolean;
   currentKey: string | null;
+  index: number;
 }) {
   const isPending = entry.status === 'pending';
   const isOwner = !entry.anonymous && isOwnerKey(entry.userId);
@@ -27,13 +31,14 @@ function EntryItem({
   const showAvatar = !entry.anonymous && entry.avatar;
   return (
     <li
-      className={
+      style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
+      className={`animate-[rise-in_0.4s_ease-out_both] ${
         isPending
           ? 'border-border bg-card/60 flex items-start gap-3 rounded-xl border border-dashed p-4'
           : isOwner
             ? 'border-primary/40 from-primary/5 relative flex items-start gap-3 overflow-hidden rounded-lg border bg-gradient-to-br to-transparent p-4'
             : 'hud-panel flex items-start gap-3 p-4'
-      }
+      }`}
     >
       {isOwner && !isPending && (
         <span aria-hidden className="bg-primary absolute top-0 left-0 h-full w-0.5" />
@@ -53,9 +58,11 @@ function EntryItem({
           unoptimized
         />
       ) : (
-        <span className="bg-muted text-muted-foreground inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
-          <UserRound size={16} aria-hidden />
-        </span>
+        <CoverFallback
+          seed={entry.userId}
+          label={entry.anonymous ? '?' : displayName}
+          className="size-9 rounded-full"
+        />
       )}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
@@ -76,7 +83,9 @@ function EntryItem({
               <span>guest</span>
             ) : null}
             <span>·</span>
-            <time dateTime={entry.createdAt.toISOString()}>{formatRelative(entry.createdAt)}</time>
+            <time dateTime={entry.createdAt.toISOString()} title={formatDateTime(entry.createdAt)}>
+              {formatRelative(entry.createdAt)}
+            </time>
           </span>
         </div>
         <p className="text-foreground mt-1 text-sm break-words whitespace-pre-wrap">
@@ -121,6 +130,8 @@ export async function GuestbookList() {
 
   return (
     <div className="space-y-6">
+      <MessagesHeading count={entries.length} />
+
       {pending.length > 0 && (
         <section aria-label="Messages waiting for approval">
           <p className="text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
@@ -135,6 +146,7 @@ export async function GuestbookList() {
                 entry={entry}
                 isOwnerSession={isOwnerSession}
                 currentKey={currentKey}
+                index={0}
               />
             ))}
           </ul>
@@ -142,17 +154,19 @@ export async function GuestbookList() {
       )}
 
       {entries.length === 0 ? (
-        <p className="text-muted-foreground border-border rounded-xl border border-dashed p-8 text-center text-sm">
-          No messages yet. Be the first!
-        </p>
+        <div className="text-muted-foreground border-border flex flex-col items-center gap-2 rounded-xl border border-dashed p-10 text-center text-sm">
+          <MessageSquareText size={22} className="text-primary/70" aria-hidden />
+          <p>No messages yet. Be the first to say hi!</p>
+        </div>
       ) : (
         <ul className="space-y-3">
-          {entries.map((entry) => (
+          {entries.map((entry, i) => (
             <EntryItem
               key={entry.id}
               entry={entry}
               isOwnerSession={isOwnerSession}
               currentKey={currentKey}
+              index={i}
             />
           ))}
         </ul>
