@@ -69,7 +69,7 @@ export default async function GuestbookPage() {
       </div>
 
       <div className="mt-10">
-        <h2 className="text-foreground text-lg font-semibold tracking-tight">
+        <h2 className="text-foreground text-xl font-semibold tracking-tight">
           Messages from visitors
         </h2>
         <div className="mt-4">

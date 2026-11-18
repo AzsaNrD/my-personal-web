@@ -23,7 +23,7 @@ export function CopyText({ value, label }: { value: string; label?: string }) {
       type="button"
       onClick={handleCopy}
       aria-label={`Copy ${label ?? 'value'}`}
-      className="text-muted-foreground hover:text-primary -m-1.5 inline-flex items-center p-1.5 transition-colors"
+      className="text-muted-foreground hover:text-primary -m-3 inline-flex items-center p-3 transition-colors"
     >
       {copied ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}
     </button>

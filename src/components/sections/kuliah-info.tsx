@@ -24,7 +24,7 @@ export function KuliahInfo() {
       <dl className="hud-panel mt-3 grid grid-cols-2 gap-x-4 gap-y-4 p-4 sm:grid-cols-3">
         {items.map((it) => (
           <div key={it.label} className="min-w-0">
-            <dt className="text-muted-foreground/70 font-mono text-[10px] tracking-wider uppercase">
+            <dt className="text-muted-foreground/70 font-mono text-[11px] tracking-wider uppercase">
               {it.label}
             </dt>
             <dd className="text-foreground mt-1 truncate text-sm font-medium">{it.value}</dd>

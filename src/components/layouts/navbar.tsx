@@ -42,7 +42,7 @@ export function Navbar() {
       >
         <Link
           href="/"
-          className="font-display flex items-center gap-1.5 text-base font-bold tracking-tight"
+          className="font-display -my-2.5 flex items-center gap-1.5 py-2.5 text-base font-bold tracking-tight"
           aria-label={`${siteConfig.shortName}, home`}
         >
           <Wordmark />
@@ -50,7 +50,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-1 md:flex">
           <span
-            className="text-muted-foreground/70 mr-3 hidden items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase lg:inline-flex"
+            className="text-muted-foreground/70 mr-3 hidden items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase lg:inline-flex"
             aria-hidden
           >
             <span className="bg-primary ping-dot relative size-1.5 rounded-full" />
@@ -98,7 +98,7 @@ export function Navbar() {
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               aria-label="Open menu"
-              className="border-border bg-card text-muted-foreground hover:border-primary hover:text-primary inline-flex h-9 w-9 items-center justify-center rounded-lg border transition-colors active:scale-95"
+              className="border-border bg-card text-muted-foreground hover:border-primary hover:text-primary inline-flex h-11 w-11 items-center justify-center rounded-lg border md:h-9 md:w-9 transition-colors active:scale-95"
             >
               <Menu size={18} aria-hidden />
             </SheetTrigger>

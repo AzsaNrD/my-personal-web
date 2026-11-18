@@ -77,7 +77,7 @@ export function PaymentCard({ p }: { p: Payment }) {
           />
           <span
             className={cn(
-              'bg-primary/15 text-primary absolute right-0 inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase transition-opacity duration-300',
+              'bg-primary/15 text-primary absolute right-0 inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[11px] tracking-wider uppercase transition-opacity duration-300',
               copied ? 'opacity-100' : 'opacity-0',
             )}
           >

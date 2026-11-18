@@ -47,7 +47,7 @@ export function SteamNowPlaying({ initialPlayer }: { initialPlayer: SteamPlayer 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5">
             <span className="text-primary inline-flex items-center gap-2">
               <PulseLine />
-              <span className="font-mono text-[10px] tracking-wider uppercase">in game</span>
+              <span className="font-mono text-[11px] tracking-wider uppercase">in game</span>
             </span>
             <UpdatedAgo at={updatedAt} className="sm:ml-auto" />
           </div>

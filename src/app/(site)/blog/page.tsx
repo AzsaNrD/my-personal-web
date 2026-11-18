@@ -39,7 +39,7 @@ export default async function BlogIndexPage() {
                   href={`/blog/${post.slug}`}
                   className="hud-panel group block p-5 outline-none"
                 >
-                  <div className="text-muted-foreground flex flex-wrap items-center gap-2 font-mono text-[11px]">
+                  <div className="text-muted-foreground flex flex-wrap items-center gap-2 font-mono text-xs">
                     <time>{formatDate(post.date)}</time>
                     <span aria-hidden>·</span>
                     <span>{post.readingMinutes} min read</span>
@@ -48,7 +48,7 @@ export default async function BlogIndexPage() {
                   </div>
 
                   <div className="mt-2 flex items-start justify-between gap-3">
-                    <h2 className="text-foreground group-hover:text-primary text-lg font-semibold tracking-tight transition-colors">
+                    <h2 className="text-foreground group-hover:text-primary text-xl font-semibold tracking-tight transition-colors">
                       {post.title}
                     </h2>
                     <ArrowUpRight
@@ -69,7 +69,7 @@ export default async function BlogIndexPage() {
                       {post.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="border-primary/25 text-primary/90 bg-primary/5 border px-2 py-0.5 font-mono text-[11px]"
+                          className="border-primary/25 text-primary/90 bg-primary/5 border px-2 py-0.5 font-mono text-xs"
                         >
                           #{tag}
                         </li>

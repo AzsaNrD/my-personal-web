@@ -13,7 +13,7 @@ export default function Loading() {
         <Skeleton className="h-9 w-28" />
       </div>
       <div className="mt-10">
-        <h2 className="text-foreground text-lg font-semibold tracking-tight">
+        <h2 className="text-foreground text-xl font-semibold tracking-tight">
           Messages from visitors
         </h2>
         <div className="mt-4">

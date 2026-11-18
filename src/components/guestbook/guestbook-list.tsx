@@ -61,11 +61,11 @@ function EntryItem({
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <p className="text-foreground truncate text-sm font-medium">{displayName}</p>
           {isOwner && (
-            <span className="bg-primary/15 text-primary inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase">
+            <span className="bg-primary/15 text-primary inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[11px] tracking-wider uppercase">
               author
             </span>
           )}
-          <span className="text-muted-foreground inline-flex items-center gap-1 text-[11px]">
+          <span className="text-muted-foreground inline-flex items-center gap-1 text-xs">
             {!entry.anonymous && entry.provider === 'github' ? (
               <GithubIcon size={11} />
             ) : !entry.anonymous && entry.provider === 'discord' ? (
@@ -123,7 +123,7 @@ export async function GuestbookList() {
     <div className="space-y-6">
       {pending.length > 0 && (
         <section aria-label="Messages waiting for approval">
-          <p className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase">
+          <p className="text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
             {isOwnerSession
               ? `Needs your review (${pending.length})`
               : 'Waiting for approval, only you can see these'}
@@ -160,13 +160,13 @@ export async function GuestbookList() {
 
       {deleted.length > 0 && (
         <details className="border-border rounded-xl border border-dashed p-4">
-          <summary className="text-muted-foreground cursor-pointer font-mono text-[10px] tracking-wider uppercase">
+          <summary className="text-muted-foreground cursor-pointer font-mono text-[11px] tracking-wider uppercase">
             Deleted messages, only you can see these ({deleted.length})
           </summary>
           <ul className="mt-3 space-y-3">
             {deleted.map((entry) => (
               <li key={entry.id} className="text-sm">
-                <p className="text-muted-foreground text-[11px]">
+                <p className="text-muted-foreground text-xs">
                   <span className="text-foreground font-medium">
                     {entry.anonymous ? 'Anonymous' : entry.name}
                   </span>

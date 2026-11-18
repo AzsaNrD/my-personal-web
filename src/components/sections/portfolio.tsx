@@ -69,7 +69,7 @@ export function Portfolio() {
                         {project.tags.map((tag) => (
                           <li
                             key={tag}
-                            className="border-primary/25 text-primary/90 bg-primary/5 border px-2 py-0.5 font-mono text-[11px]"
+                            className="border-primary/25 text-primary/90 bg-primary/5 border px-2 py-0.5 font-mono text-xs"
                           >
                             {tag}
                           </li>

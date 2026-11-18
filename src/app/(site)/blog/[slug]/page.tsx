@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: { params: Promise<RoutePa
       <JsonLd data={article} />
       <Link
         href="/blog"
-        className="text-muted-foreground hover:text-primary mb-8 inline-flex items-center gap-1.5 text-xs font-medium transition-colors"
+        className="text-muted-foreground hover:text-primary -mt-3.5 mb-[18px] inline-flex items-center gap-1.5 py-3.5 text-xs font-medium transition-colors"
       >
         <ArrowLeft size={14} aria-hidden />
         Back to blog

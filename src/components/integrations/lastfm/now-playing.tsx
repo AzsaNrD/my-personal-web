@@ -73,7 +73,7 @@ function NowPlayingContent({
         href={track.url}
         target="_blank"
         rel="noreferrer noopener"
-        className="hover:text-primary inline-flex max-w-full min-w-0 basis-full items-center gap-2 transition-colors sm:basis-auto"
+        className="hover:text-primary -my-1.5 inline-flex max-w-full min-w-0 basis-full items-center gap-2 py-1.5 transition-colors sm:basis-auto"
       >
         <span
           className={cn(

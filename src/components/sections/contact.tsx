@@ -18,7 +18,7 @@ const socials: {
   { label: 'Discord', handle: 'Azsa NrD', href: '/discord', icon: DiscordIcon },
 ];
 
-const eyebrowClass = 'text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase';
+const eyebrowClass = 'text-muted-foreground font-mono text-[11px] tracking-[0.2em] uppercase';
 
 export function Contact() {
   return (

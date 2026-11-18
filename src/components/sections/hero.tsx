@@ -106,11 +106,11 @@ export function Hero() {
                 <span className="size-2.5 rounded-full bg-[var(--magenta)]/80" aria-hidden />
                 <span className="size-2.5 rounded-full bg-[var(--cyan)]/80" aria-hidden />
                 <span className="bg-primary/80 size-2.5 rounded-full" aria-hidden />
-                <span className="text-muted-foreground ml-2 font-mono text-[11px] tracking-wider">
+                <span className="text-muted-foreground ml-2 font-mono text-xs tracking-wider">
                   profile.log
                 </span>
                 <span
-                  className="text-muted-foreground/60 ml-auto font-mono text-[10px] tracking-[0.2em] uppercase"
+                  className="text-muted-foreground/60 ml-auto font-mono text-[11px] tracking-[0.2em] uppercase"
                   aria-hidden
                 >
                   read-only
@@ -139,7 +139,7 @@ export function Hero() {
                     <dd className="font-display text-gradient text-2xl font-bold tabular-nums">
                       {String(value).padStart(2, '0')}
                     </dd>
-                    <dt className="text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase">
+                    <dt className="text-muted-foreground font-mono text-[11px] tracking-[0.2em] uppercase">
                       {label}
                     </dt>
                   </div>

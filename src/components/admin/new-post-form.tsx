@@ -186,7 +186,7 @@ export function NewPostForm() {
             <span
               role="status"
               aria-live="polite"
-              className="text-muted-foreground ml-auto font-mono text-[10px] tracking-wider uppercase"
+              className="text-muted-foreground ml-auto font-mono text-[11px] tracking-wider uppercase"
             >
               {tab === 'preview' && updating ? 'Updating…' : ''}
             </span>

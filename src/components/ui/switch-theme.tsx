@@ -17,7 +17,7 @@ export function SwitchTheme() {
       type="button"
       aria-label={mounted ? `Switch to ${isDark ? 'light' : 'dark'} theme` : 'Switch theme'}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="border-border bg-card text-muted-foreground hover:border-primary hover:text-primary inline-flex h-9 w-9 items-center justify-center rounded-lg border transition-colors duration-200 active:scale-95"
+      className="border-border bg-card text-muted-foreground hover:border-primary hover:text-primary inline-flex h-11 w-11 items-center justify-center rounded-lg border md:h-9 md:w-9 transition-colors duration-200 active:scale-95"
     >
       {mounted ? (
         isDark ? (

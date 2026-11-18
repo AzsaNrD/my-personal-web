@@ -30,12 +30,12 @@ function ExperienceCard({ item }: { item: ExperienceItem }) {
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-foreground text-base font-semibold tracking-tight">{item.role}</h3>
           {item.employmentType ? (
-            <span className="text-muted-foreground bg-muted inline-flex items-center px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase">
+            <span className="text-muted-foreground bg-muted inline-flex items-center px-2 py-0.5 font-mono text-[11px] tracking-wider uppercase">
               {item.employmentType}
             </span>
           ) : null}
           {item.current ? (
-            <span className="text-primary bg-primary/10 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase">
+            <span className="text-primary bg-primary/10 inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[11px] tracking-wider uppercase">
               <span className="bg-primary size-1.5 rounded-full" aria-hidden />
               Ongoing
             </span>

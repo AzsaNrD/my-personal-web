@@ -37,7 +37,7 @@ export function UpdatedAgo({
   return (
     <span
       suppressHydrationWarning
-      className={cn('text-muted-foreground font-mono text-[10px] tabular-nums', className)}
+      className={cn('text-muted-foreground font-mono text-xs tabular-nums', className)}
     >
       {label ? `${label} ` : ''}
       {formatAgo(now - at)}

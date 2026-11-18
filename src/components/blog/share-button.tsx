@@ -39,7 +39,7 @@ export function ShareButton({ title, slug }: Props) {
       type="button"
       onClick={handleShare}
       aria-label={copied ? 'Link copied' : 'Share post'}
-      className="text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 font-mono text-xs transition-colors"
+      className="text-muted-foreground hover:text-primary -my-3.5 inline-flex items-center gap-1.5 py-3.5 font-mono text-xs transition-colors"
     >
       {copied ? <Check size={12} aria-hidden /> : <Share2 size={12} aria-hidden />}
       {copied ? 'link copied' : 'share'}
