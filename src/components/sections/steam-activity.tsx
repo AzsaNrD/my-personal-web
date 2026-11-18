@@ -15,6 +15,7 @@ import { SteamNowPlaying } from '@/components/integrations/steam/steam-now-playi
 import { SteamAvatar } from '@/components/integrations/steam/steam-avatar';
 import { PulseLine } from '@/components/ui/pulse-line';
 import { Tilt } from '@/components/ui/tilt';
+import { SubLabel } from '@/components/layouts/block-heading';
 
 async function loadAll(): Promise<{
   player: SteamPlayer | null;
@@ -143,7 +144,7 @@ function HeroCard({
             className="ring-border ring-offset-card size-20 shrink-0 rounded-lg object-cover ring-2 ring-offset-2"
           />
           <div className="min-w-0 flex-1">
-            <p className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase">
+            <p className="text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
               Steam profile
             </p>
             <p className="text-foreground group-hover:text-primary mt-0.5 truncate text-xl font-semibold transition-colors">
@@ -167,7 +168,7 @@ function HeroCard({
             <dd className="text-foreground font-mono text-xl font-semibold">
               {summary?.totalGames ?? '–'}
             </dd>
-            <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
+            <dt className="text-muted-foreground mt-0.5 font-mono text-[11px] tracking-wider uppercase">
               Games owned
             </dt>
           </div>
@@ -175,13 +176,13 @@ function HeroCard({
             <dd className="text-foreground font-mono text-xl font-semibold">
               {playtime2W ? formatPlaytime(playtime2W) : '–'}
             </dd>
-            <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
+            <dt className="text-muted-foreground mt-0.5 font-mono text-[11px] tracking-wider uppercase">
               Last 2 weeks
             </dt>
           </div>
           <div className="px-4 py-3 text-center">
             <dd className="text-foreground font-mono text-xl font-semibold">{recent.length}</dd>
-            <dt className="text-muted-foreground mt-0.5 font-mono text-[10px] tracking-wider uppercase">
+            <dt className="text-muted-foreground mt-0.5 font-mono text-[11px] tracking-wider uppercase">
               Recent games
             </dt>
           </div>
@@ -201,13 +202,16 @@ async function SteamSection() {
     );
   }
   return (
-    <div className="space-y-4">
-      <HeroCard player={player} summary={summary} recent={recent} />
-      <SteamNowPlaying initialPlayer={player} />
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 [&>*]:min-w-0">
       <div>
-        <h3 className="text-muted-foreground mb-3 font-mono text-xs tracking-wider uppercase">
-          Recently played
-        </h3>
+        <SubLabel icon={Gamepad2}>Steam activity</SubLabel>
+        <div className="space-y-4">
+          <HeroCard player={player} summary={summary} recent={recent} />
+          <SteamNowPlaying initialPlayer={player} />
+        </div>
+      </div>
+      <div>
+        <SubLabel>Recently played</SubLabel>
         <RecentGamesList games={recent} />
       </div>
     </div>
@@ -216,8 +220,8 @@ async function SteamSection() {
 
 function Skeleton() {
   return (
-    <div className="space-y-3">
-      <div className="border-border bg-muted/40 h-20 animate-pulse rounded-xl border" />
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
+      <div className="border-border bg-muted/40 mt-[27px] h-[196px] animate-pulse rounded-xl border" />
       <ul className="space-y-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <li
@@ -233,14 +237,8 @@ function Skeleton() {
 
 export function SteamActivity() {
   return (
-    <div>
-      <h3 className="text-muted-foreground mb-3 flex items-center gap-2 font-mono text-xs tracking-wider uppercase">
-        <Gamepad2 size={12} aria-hidden />
-        Steam activity
-      </h3>
-      <Suspense fallback={<Skeleton />}>
-        <SteamSection />
-      </Suspense>
-    </div>
+    <Suspense fallback={<Skeleton />}>
+      <SteamSection />
+    </Suspense>
   );
 }

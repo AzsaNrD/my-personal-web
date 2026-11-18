@@ -1,5 +1,5 @@
 /** Eyebrow label shared by page headers and in-page sections. */
-function Eyebrow({
+export function Eyebrow({
   children,
   jp,
   icon: Icon,

@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
-import { Crown, Disc3, Music2 } from 'lucide-react';
+import { Crown, Music2 } from 'lucide-react';
 import { getNowPlaying, getRecentTracks, getTopTracks } from '@/lib/integrations/lastfm';
 import { NowPlayingCard } from '@/components/integrations/lastfm/now-playing-card';
 import { RecentTracksList } from '@/components/integrations/lastfm/recent-tracks-list';
 import { LoadingImage } from '@/components/ui/loading-image';
-import { SectionHeading } from '@/components/layouts/page-header';
+import { CoverFallback } from '@/components/ui/cover-fallback';
+import { BlockHeading, SubLabel } from '@/components/layouts/block-heading';
 import { cn } from '@/lib/utils';
 import { lastfmThumb } from '@/lib/lastfm-image';
 
@@ -46,9 +47,7 @@ function TrackRow({
             className="size-10 shrink-0 rounded-sm object-cover"
           />
         ) : (
-          <span className="bg-muted text-muted-foreground/60 inline-flex size-10 shrink-0 items-center justify-center rounded-sm">
-            <Disc3 size={20} aria-hidden />
-          </span>
+          <CoverFallback seed={`${name}-${artist}`} label={name} className="size-10 rounded-sm" />
         )}
         <div className="min-w-0 flex-1">
           <p className="text-foreground group-hover:text-primary truncate text-sm font-medium transition-colors">
@@ -76,7 +75,17 @@ async function NowPlayingIsland() {
 
 type TopTrack = Awaited<ReturnType<typeof getTopTracks>>[number];
 
-function Cover({ image, className }: { image: string | null; className: string }) {
+function Cover({
+  image,
+  seed,
+  label,
+  className,
+}: {
+  image: string | null;
+  seed: string;
+  label: string;
+  className: string;
+}) {
   if (image) {
     return (
       <LoadingImage
@@ -89,16 +98,7 @@ function Cover({ image, className }: { image: string | null; className: string }
       />
     );
   }
-  return (
-    <span
-      className={cn(
-        'bg-muted text-muted-foreground/60 inline-flex shrink-0 items-center justify-center rounded-sm',
-        className,
-      )}
-    >
-      <Disc3 size={20} aria-hidden />
-    </span>
-  );
+  return <CoverFallback seed={seed} label={label} className={cn('rounded-sm', className)} />;
 }
 
 /** #1: the featured card, with a bracketed frame and a large gradient rank. */
@@ -113,10 +113,12 @@ function TopTrackFirst({ track }: { track: TopTrack }) {
       >
         <Cover
           image={track.image}
+          seed={`${track.name}-${track.artist}`}
+          label={track.name}
           className="size-[72px] shadow-[0_0_22px_-6px_var(--glow-strong)]"
         />
         <div className="min-w-0 flex-1">
-          <p className="text-primary inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em] uppercase">
+          <p className="text-primary inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.2em] uppercase">
             <Crown size={12} aria-hidden />
             Most played
           </p>
@@ -150,7 +152,12 @@ function TopTrackPodium({ track, rank }: { track: TopTrack; rank: 2 | 3 }) {
         <span className="font-display w-7 shrink-0 text-xl font-bold text-[var(--accent)]">
           {String(rank).padStart(2, '0')}
         </span>
-        <Cover image={track.image} className="size-12" />
+        <Cover
+          image={track.image}
+          seed={`${track.name}-${track.artist}`}
+          label={track.name}
+          className="size-12"
+        />
         <div className="min-w-0 flex-1">
           <p className="text-foreground group-hover:text-primary truncate text-sm font-medium transition-colors">
             {track.name}
@@ -174,7 +181,7 @@ async function TopTracks() {
     return <p className="text-muted-foreground text-sm">No top tracks yet.</p>;
   }
   return (
-    <ul className="space-y-2.5">
+    <ul className="space-y-2.5 [&>li:nth-child(n+4)]:max-sm:hidden">
       {tracks.map((t, i) => {
         const key = `${t.name}-${t.artist}-${i}`;
         if (i === 0) return <TopTrackFirst key={key} track={t} />;
@@ -198,12 +205,14 @@ async function TopTracks() {
 async function RecentTracksIsland() {
   let tracks: Awaited<ReturnType<typeof getRecentTracks>> = [];
   try {
-    tracks = await getRecentTracks(4);
+    tracks = await getRecentTracks(RECENT_TILES + 1);
   } catch (error) {
     console.error('[music/recent-tracks-island]', error);
   }
-  return <RecentTracksList initialTracks={tracks} limit={4} />;
+  return <RecentTracksList initialTracks={tracks} limit={RECENT_TILES + 1} />;
 }
+
+const RECENT_TILES = 9;
 
 function Skeleton({ rows }: { rows: number }) {
   return (
@@ -221,67 +230,48 @@ function Skeleton({ rows }: { rows: number }) {
 
 export function Music() {
   return (
-    <section className="space-y-8">
-      <SectionHeading
+    <section aria-labelledby="music-heading" className="space-y-8">
+      <BlockHeading
         eyebrow="Music"
         jp="音楽"
         title="What I'm listening to"
+        titleId="music-heading"
         icon={Music2}
-        description={
-          <>
-            My{' '}
-            <a
-              href={`https://www.last.fm/user/${process.env.LASTFM_USERNAME ?? 'azsanrd'}`}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="hover:text-primary underline-offset-2 hover:underline"
-            >
-              listening history
-            </a>
-            , updated live.
-          </>
-        }
       />
 
-      <div>
-        <h3 className="text-muted-foreground mb-3 font-mono text-[11px] tracking-wider uppercase">
-          <span className="text-primary/60" aria-hidden>
-            //{' '}
-          </span>
-          Now / last played
-        </h3>
-        <Suspense
-          fallback={
-            <div className="border-border bg-muted/40 h-24 animate-pulse rounded-xl border" />
-          }
-        >
-          <NowPlayingIsland />
-        </Suspense>
-      </div>
+      <Suspense
+        fallback={
+          <div className="border-border bg-muted/40 h-24 animate-pulse rounded-xl border" />
+        }
+      >
+        <NowPlayingIsland />
+      </Suspense>
 
-      <div>
-        <h3 className="text-muted-foreground mb-3 font-mono text-[11px] tracking-wider uppercase">
-          <span className="text-primary/60" aria-hidden>
-            //{' '}
-          </span>
-          Top tracks · last 7 days
-        </h3>
-        <Suspense fallback={<Skeleton rows={5} />}>
-          <TopTracks />
-        </Suspense>
-      </div>
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 [&>*]:min-w-0">
+        <div>
+          <SubLabel>Top tracks · last 7 days</SubLabel>
+          <Suspense fallback={<Skeleton rows={5} />}>
+            <TopTracks />
+          </Suspense>
+        </div>
 
-      <div>
-        <h3 className="text-muted-foreground mb-3 font-mono text-[11px] tracking-wider uppercase">
-          <span className="text-primary/60" aria-hidden>
-            //{' '}
-          </span>
-          Recent plays
-        </h3>
-        <Suspense fallback={<Skeleton rows={4} />}>
-          <RecentTracksIsland />
-        </Suspense>
+        <div>
+          <SubLabel>Recent plays</SubLabel>
+          <Suspense fallback={<RecentSkeleton />}>
+            <RecentTracksIsland />
+          </Suspense>
+        </div>
       </div>
     </section>
+  );
+}
+
+function RecentSkeleton() {
+  return (
+    <ul className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-3 [&>li:nth-child(n+7)]:hidden lg:[&>li:nth-child(n+7)]:block">
+      {Array.from({ length: RECENT_TILES }).map((_, i) => (
+        <li key={i} className="bg-muted/40 aspect-square animate-pulse rounded-lg" aria-hidden />
+      ))}
+    </ul>
   );
 }

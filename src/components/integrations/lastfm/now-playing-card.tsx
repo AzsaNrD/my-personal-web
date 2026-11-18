@@ -1,6 +1,6 @@
 'use client';
 
-import { Disc3, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { lastfmThumb } from '@/lib/lastfm-image';
 import { Visualizer } from '@/components/ui/visualizer';
@@ -8,6 +8,7 @@ import type { LastfmTrack } from '@/lib/integrations/lastfm';
 import { usePolledFetchState } from '@/lib/hooks/use-polled-fetch';
 import { LASTFM_POLL_INTERVAL_MS } from '@/lib/constants';
 import { LoadingImage } from '@/components/ui/loading-image';
+import { CoverFallback } from '@/components/ui/cover-fallback';
 import { UpdatedAgo } from '@/components/ui/updated-ago';
 import { Tilt } from '@/components/ui/tilt';
 
@@ -66,12 +67,14 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
               height={80}
               unoptimized
               priority
-              className="size-20 shrink-0 rounded-md object-cover"
+              className="size-20 shrink-0 rounded-md object-cover sm:size-24"
             />
           ) : (
-            <span className="bg-muted text-muted-foreground/60 inline-flex size-20 shrink-0 items-center justify-center rounded-md">
-              <Disc3 size={36} aria-hidden />
-            </span>
+            <CoverFallback
+              seed={`${track.name}-${track.artist}`}
+              label={track.name}
+              className="size-20 rounded-md sm:size-24"
+            />
           )}
         </span>
         <div className="relative min-w-0 flex-1">
@@ -79,10 +82,10 @@ export function NowPlayingCard({ initialTrack }: { initialTrack: LastfmTrack | n
             {track.nowPlaying ? (
               <span className="text-primary inline-flex items-center gap-2">
                 <span aria-hidden className="bg-primary ping-dot relative size-2 rounded-full" />
-                <span className="font-mono text-[10px] tracking-wider uppercase">now playing</span>
+                <span className="font-mono text-[11px] tracking-wider uppercase">now playing</span>
               </span>
             ) : (
-              <span className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase">
+              <span className="text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
                 last played
               </span>
             )}
