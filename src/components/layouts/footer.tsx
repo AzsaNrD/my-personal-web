@@ -1,4 +1,4 @@
-import { ArrowUp, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import {
   GithubIcon,
   LinkedinIcon,
@@ -6,6 +6,7 @@ import {
   DiscordIcon,
   SpotifyIcon,
 } from '@/components/ui/brand-icons';
+import { BackToTop } from '@/components/ui/back-to-top';
 import { siteConfig } from '@/lib/site-config';
 
 const items = [
@@ -32,13 +33,13 @@ export function Footer() {
               href="/github"
               target="_blank"
               rel="noreferrer noopener"
-              className="hover:text-primary transition-colors"
+              className="hover:text-primary -my-3 inline-block py-3 transition-colors"
             >
               {siteConfig.name}
             </a>
           </p>
           <p
-            className="text-muted-foreground inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase"
+            className="text-muted-foreground inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase"
             aria-hidden
           >
             <span className="bg-primary ping-dot relative size-1.5 rounded-full" />
@@ -54,20 +55,14 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label={label}
-                className="hover:text-primary hover:bg-primary/10 inline-flex h-9 w-9 items-center justify-center transition-all hover:-translate-y-0.5 hover:shadow-[0_0_14px_-4px_var(--glow-strong)]"
+                className="hover:text-primary hover:bg-primary/10 inline-flex h-11 w-11 items-center justify-center transition-all hover:-translate-y-0.5 hover:shadow-[0_0_14px_-4px_var(--glow-strong)] sm:h-9 sm:w-9"
               >
                 <Icon size={16} />
               </a>
             </li>
           ))}
           <li className="ml-2">
-            <a
-              href="#top"
-              aria-label="Back to top"
-              className="border-border hover:border-primary hover:text-primary inline-flex h-9 w-9 items-center justify-center border transition-colors"
-            >
-              <ArrowUp size={15} aria-hidden />
-            </a>
+            <BackToTop className="group/top border-border hover:border-primary hover:text-primary inline-flex h-11 w-11 items-center justify-center border transition-[color,border-color,transform] active:scale-95 sm:h-9 sm:w-9" />
           </li>
         </ul>
       </div>
