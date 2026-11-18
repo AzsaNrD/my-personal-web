@@ -2,10 +2,10 @@ import { FadeIn } from '@/components/ui/fade-in';
 import { SectionHeading } from '@/components/layouts/page-header';
 import { experience, type ExperienceItem } from '@/lib/data/experience';
 
-const CATEGORY_META: Record<ExperienceItem['type'], { label: string; code: string }> = {
-  work: { label: 'Work', code: 'WRK' },
-  education: { label: 'Education', code: 'EDU' },
-  program: { label: 'Independent study', code: 'IND' },
+const CATEGORY_LABEL: Record<ExperienceItem['type'], string> = {
+  work: 'Work',
+  education: 'Education',
+  program: 'Independent study',
 };
 
 const CATEGORY_ORDER: ExperienceItem['type'][] = ['work', 'education', 'program'];
@@ -43,7 +43,7 @@ function ExperienceCard({ item }: { item: ExperienceItem }) {
         </div>
         <p className="text-muted-foreground mt-1 text-sm leading-relaxed">{item.org}</p>
         {item.orgDetail ? (
-          <p className="text-muted-foreground/70 mt-1 text-xs leading-relaxed">{item.orgDetail}</p>
+          <p className="text-muted-foreground mt-1 text-[13px] leading-relaxed">{item.orgDetail}</p>
         ) : null}
         {item.description ? (
           <p className="text-muted-foreground mt-2 max-w-prose text-sm leading-relaxed">
@@ -83,17 +83,11 @@ export function Experience() {
           return (
             <FadeIn
               key={type}
-              className="grid grid-cols-1 gap-5 lg:grid-cols-[9rem_1fr] lg:gap-8 [&>*]:min-w-0"
+              className="grid grid-cols-1 gap-5 lg:grid-cols-[8rem_1fr] lg:gap-8 [&>*]:min-w-0"
             >
               <div className="lg:sticky lg:top-24 lg:self-start">
                 <p className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
-                  {CATEGORY_META[type].label}
-                </p>
-                <p
-                  aria-hidden
-                  className="text-muted-foreground/30 font-display mt-1 text-4xl font-bold tracking-tight"
-                >
-                  {CATEGORY_META[type].code}
+                  {CATEGORY_LABEL[type]}
                 </p>
               </div>
               <ul className="border-primary/30 ml-1 border-l">

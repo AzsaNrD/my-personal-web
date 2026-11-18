@@ -8,6 +8,10 @@ const BRAND_ICON: Record<NonNullable<Project['brand']>, typeof DiscordIcon> = {
   discord: DiscordIcon,
 };
 
+const BRAND_LABEL: Record<NonNullable<Project['brand']>, string> = {
+  discord: 'Discord bot',
+};
+
 /** Official brand color, used only for the icon when no screenshot exists. */
 const BRAND_COLOR: Record<NonNullable<Project['brand']>, string> = {
   discord: '#5865F2',
@@ -49,15 +53,36 @@ export function ProjectPreview({
 
   if (project.brand) {
     const Icon = BRAND_ICON[project.brand];
+    const color = BRAND_COLOR[project.brand];
+    const lg = size === 'lg';
     return (
       <div
         className={cn(
-          'border-border bg-muted/40 flex items-center justify-center border',
-          size === 'lg' ? 'aspect-video w-full rounded-xl' : 'h-16 w-24 rounded-md',
+          'border-border relative flex items-center justify-center overflow-hidden border',
+          lg ? 'aspect-video w-full rounded-xl' : 'h-16 w-24 rounded-md',
           className,
         )}
+        style={{
+          backgroundImage: [
+            'repeating-radial-gradient(circle at 50% 50%, transparent 0 11%, color-mix(in oklab, var(--foreground) 6%, transparent) 11% 11.6%)',
+            `radial-gradient(circle at 50% 50%, color-mix(in oklab, ${color} 30%, var(--card)), var(--card) 72%)`,
+          ].join(', '),
+        }}
       >
-        <Icon size={size === 'lg' ? 40 : 22} style={{ color: BRAND_COLOR[project.brand] }} />
+        <span
+          className={cn(
+            'bg-card/80 border-border inline-flex items-center justify-center border backdrop-blur-sm',
+            lg ? 'size-20 rounded-2xl' : 'size-9 rounded-lg',
+          )}
+          style={{ boxShadow: `0 0 32px -6px color-mix(in oklab, ${color} 60%, transparent)` }}
+        >
+          <Icon size={lg ? 40 : 20} style={{ color }} />
+        </span>
+        {lg ? (
+          <span className="text-muted-foreground absolute bottom-3 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.2em] uppercase">
+            {BRAND_LABEL[project.brand]}
+          </span>
+        ) : null}
       </div>
     );
   }

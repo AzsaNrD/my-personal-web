@@ -23,7 +23,7 @@ const current = experience.find((item) => item.current);
 const stats = [
   { label: 'Projects', value: projects.length },
   { label: 'Stack', value: skills.length },
-  { label: 'Timeline', value: experience.length },
+  { label: 'Experience', value: experience.length },
 ];
 
 function TerminalLine({ cmd, out }: { cmd: string; out: React.ReactNode }) {

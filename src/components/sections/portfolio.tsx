@@ -41,17 +41,17 @@ export function Portfolio() {
                         size="lg"
                         className="transition-transform duration-500 group-hover:scale-[1.04]"
                       />
-                      <span
-                        aria-hidden
-                        className="bg-background/80 text-primary absolute top-2 left-2 px-2 py-0.5 font-mono text-[11px] tracking-widest backdrop-blur"
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
                     </div>
 
                     <div className="flex min-w-0 flex-1 flex-col">
                       <div className="flex items-start justify-between gap-3">
-                        <h3 className="text-foreground group-hover:text-primary font-display text-xl font-semibold tracking-tight transition-colors sm:text-2xl">
+                        <h3 className="text-foreground group-hover:text-primary font-display text-xl font-semibold transition-colors [word-spacing:0.14em] sm:text-2xl">
+                          <span
+                            aria-hidden
+                            className="text-primary/70 mr-2.5 align-middle font-mono text-xs font-medium tracking-widest"
+                          >
+                            {String(idx + 1).padStart(2, '0')}
+                          </span>
                           {project.title}
                         </h3>
                         <ArrowUpRight
@@ -65,7 +65,7 @@ export function Portfolio() {
                         {project.description}
                       </p>
 
-                      <ul className="mt-4 flex flex-wrap gap-1.5">
+                      <ul className="mt-auto flex flex-wrap gap-1.5 pt-4">
                         {project.tags.map((tag) => (
                           <li
                             key={tag}

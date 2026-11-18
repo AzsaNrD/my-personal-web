@@ -52,7 +52,7 @@ export function PageHeader({
       <Eyebrow jp={jp}>{eyebrow}</Eyebrow>
       <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-foreground text-4xl font-bold tracking-tight md:text-5xl">
+          <h1 className="font-display text-foreground text-4xl font-bold tracking-tight [word-spacing:0.1em] md:text-5xl">
             {title}
           </h1>
           <span
