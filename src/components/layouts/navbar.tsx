@@ -1,19 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SwitchTheme } from '@/components/ui/switch-theme';
 import { ScrollProgress } from '@/components/ui/scroll-progress';
-import { containerWidth } from '@/components/layouts/site-container';
+import { containerWidth, useSection } from '@/components/layouts/site-container';
 import { siteConfig } from '@/lib/site-config';
 import { cn } from '@/lib/utils';
 
-function isActive(pathname: string, href: string) {
-  if (href === '/') return pathname === '/';
-  return pathname.startsWith(href);
+function isActive(section: string, href: string) {
+  return href === '/' ? section === '' : href === `/${section}`;
 }
 
 function Wordmark() {
@@ -29,7 +27,7 @@ function Wordmark() {
 }
 
 export function Navbar() {
-  const pathname = usePathname();
+  const section = useSection();
   const [open, setOpen] = useState(false);
 
   return (
@@ -37,7 +35,7 @@ export function Navbar() {
       <nav
         className={cn(
           'mx-auto flex items-center justify-between px-5 py-3.5 sm:px-6',
-          containerWidth(pathname),
+          containerWidth(section),
         )}
       >
         <Link
@@ -57,7 +55,7 @@ export function Navbar() {
             sys.online
           </span>
           {siteConfig.nav.map((item, idx) => {
-            const active = isActive(pathname, item.href);
+            const active = isActive(section, item.href);
             return (
               <Link
                 key={item.href}
@@ -98,7 +96,7 @@ export function Navbar() {
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               aria-label="Open menu"
-              className="border-border bg-card text-muted-foreground hover:border-primary hover:text-primary inline-flex h-11 w-11 items-center justify-center rounded-lg border md:h-9 md:w-9 transition-colors active:scale-95"
+              className="border-border bg-card text-muted-foreground hover:border-primary hover:text-primary inline-flex h-11 w-11 items-center justify-center rounded-lg border transition-colors active:scale-95 md:h-9 md:w-9"
             >
               <Menu size={18} aria-hidden />
             </SheetTrigger>
@@ -110,7 +108,7 @@ export function Navbar() {
               </SheetHeader>
               <div className="flex flex-col gap-1 px-4">
                 {siteConfig.nav.map((item, idx) => {
-                  const active = isActive(pathname, item.href);
+                  const active = isActive(section, item.href);
                   return (
                     <Link
                       key={item.href}
