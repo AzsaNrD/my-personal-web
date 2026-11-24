@@ -4,6 +4,7 @@ export const siteConfig = {
   role: 'Web Enthusiast',
   bio: 'I build for the web and learn something new with every project.',
   location: 'Indonesia',
+  now: 'Building web apps, exploring cybersecurity.',
   email: 'azsa.dev@gmail.com',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   ownerIds: ['github:85381324', 'discord:538126686231986176', 'google:114750223834640505306'],

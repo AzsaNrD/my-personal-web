@@ -9,6 +9,7 @@ import { HeroName } from '@/components/sections/hero-name';
 import { experience } from '@/lib/data/experience';
 import { projects } from '@/lib/data/projects';
 import { skills } from '@/lib/data/skills';
+import { getPublicRepoCount } from '@/lib/integrations/github';
 import { siteConfig } from '@/lib/site-config';
 
 const ROLES = [
@@ -20,15 +21,22 @@ const ROLES = [
 
 const current = experience.find((item) => item.current);
 
-const stats = [
-  { label: 'Projects', value: projects.length },
-  { label: 'Stack', value: skills.length },
-  { label: 'Experience', value: experience.length },
-];
+/** "Badan Siber dan Sandi Negara (BSSN)" becomes "BSSN"; names without an acronym stay whole. */
+const shortOrg = (org: string) => /\(([^)]+)\)/.exec(org)?.[1] ?? org;
 
-function TerminalLine({ cmd, out }: { cmd: string; out: React.ReactNode }) {
+const githubLabel = siteConfig.links.github.replace(/^https?:\/\//, '');
+
+function TerminalLine({
+  cmd,
+  out,
+  className,
+}: {
+  cmd: string;
+  out: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div>
+    <div className={className}>
       <p>
         <span className="text-primary">$</span> <span className="text-foreground">{cmd}</span>
       </p>
@@ -37,7 +45,14 @@ function TerminalLine({ cmd, out }: { cmd: string; out: React.ReactNode }) {
   );
 }
 
-export function Hero() {
+export async function Hero() {
+  const repos = await getPublicRepoCount();
+  const stats = [
+    { label: 'Projects', value: projects.length },
+    ...(repos !== null ? [{ label: 'Repos', value: repos }] : []),
+    { label: 'Experience', value: experience.length },
+  ];
+
   return (
     <section className="relative pt-10 pb-6 md:pt-16" aria-label="Introduction">
       <div
@@ -118,22 +133,42 @@ export function Hero() {
               </div>
 
               <div className="space-y-3.5 p-4 font-mono text-[13px] leading-relaxed sm:p-5">
-                <TerminalLine cmd="whoami" out={siteConfig.name} />
-                <TerminalLine cmd="cat location.txt" out={siteConfig.location} />
+                {/* Location and the stat row are dropped on phones: the card stays three lines and the page shorter. */}
+                <TerminalLine
+                  cmd="cat location.txt"
+                  out={siteConfig.location}
+                  className="max-sm:hidden"
+                />
                 {current ? (
                   <TerminalLine
                     cmd="status --now"
                     out={
                       <>
-                        <span className="text-primary">●</span> {current.role} @ BSSN
+                        <span className="text-primary">●</span> {current.role} @{' '}
+                        {shortOrg(current.org)}
                       </>
                     }
                   />
                 ) : null}
-                <TerminalLine cmd="ls stack/ | head -4" out={skills.slice(0, 4).join('  ')} />
+                <TerminalLine cmd="cat now.txt" out={siteConfig.now} />
+                <TerminalLine
+                  cmd="open github"
+                  out={
+                    <a
+                      href="/github"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="text-primary -my-2 inline-block cursor-pointer py-2 underline-offset-4 hover:underline"
+                    >
+                      {githubLabel} ↗
+                    </a>
+                  }
+                />
               </div>
 
-              <dl className="border-border grid grid-cols-3 border-t">
+              <dl
+                className={`border-border grid border-t max-sm:hidden ${stats.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}
+              >
                 {stats.map(({ label, value }) => (
                   <div key={label} className="border-border px-4 py-3 not-first:border-l">
                     <dd className="font-display text-gradient text-2xl font-bold tabular-nums">
