@@ -24,6 +24,15 @@ const current = experience.find((item) => item.current);
 /** "Badan Siber dan Sandi Negara (BSSN)" becomes "BSSN"; names without an acronym stay whole. */
 const shortOrg = (org: string) => /\(([^)]+)\)/.exec(org)?.[1] ?? org;
 
+/** Availability notes sit among the skills, one near each end of the visible strip. */
+const OPEN_FOR_WORK = ['Open for website projects', 'Website development services'];
+const MARQUEE_ITEMS = [
+  OPEN_FOR_WORK[0],
+  ...skills.slice(0, 6),
+  OPEN_FOR_WORK[1],
+  ...skills.slice(6),
+];
+
 const githubLabel = siteConfig.links.github.replace(/^https?:\/\//, '');
 
 function TerminalLine({
@@ -186,7 +195,7 @@ export async function Hero() {
       </div>
 
       <div className="border-border mt-14 border-y py-3.5">
-        <Marquee items={skills} />
+        <Marquee items={MARQUEE_ITEMS} highlight={OPEN_FOR_WORK} />
       </div>
     </section>
   );
